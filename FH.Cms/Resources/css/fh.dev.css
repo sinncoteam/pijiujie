@@ -1,0 +1,9 @@
+﻿.tbl_btn { padding:8px 0px 0px 50px; }
+.tbl_btn input { margin:0px 8px 0 6px; min-width:120px; }
+.clear { clear:both; }
+.page_title_area {margin:20px 20px 0px 20px;  }
+.page_title_area .page_title {  height:30px; font-size:28px; margin-bottom: 15px; border-bottom:1px dashed #ccc; }
+table.dataTable tr.odd.row_selected td{ background-color:#ccc !important;}
+table.dataTable tr.even.row_selected td{ background-color:#ccc; }
+.form-actions input.btn { min-width:120px; margin-left:20px; }
+.required_form { color:Red; }

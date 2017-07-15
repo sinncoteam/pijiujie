@@ -1,0 +1,630 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{68FA3DA5-D0FD-4A60-85C4-FE15EBC4D75F}</ProjectGuid>
+    <ProjectTypeGuids>{E3E379DF-F4C6-4180-9B81-6769533ABE47};{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>JFB.Cms</RootNamespace>
+    <AssemblyName>JFB.Cms</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>false</UseIISExpress>
+    <SilverlightApplicationList>
+    </SilverlightApplicationList>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="log4net">
+      <HintPath>..\..\lib\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.5.0.0\lib\net40\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.4.5.6\lib\net40\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Net.Http.2.0.20710.0\lib\net40\System.Net.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.Formatting, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.4.0.20710.0\lib\net40\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Net.Http.2.0.20710.0\lib\net40\System.Net.Http.WebRequest.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.4.0.20710.0\lib\net40\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.4.0.20710.0\lib\net40\System.Web.Http.WebHost.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.4.0.20710.0\lib\net40\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Optimization">
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.0.0\lib\net40\System.Web.Optimization.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Providers">
+      <HintPath>..\packages\Microsoft.AspNet.Providers.Core.1.1\lib\net40\System.Web.Providers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Razor.2.0.20710.0\lib\net40\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="ViCore">
+      <HintPath>..\..\lib\ViCore.dll</HintPath>
+    </Reference>
+    <Reference Include="ViData">
+      <HintPath>..\..\lib\ViData.dll</HintPath>
+    </Reference>
+    <Reference Include="WebGrease">
+      <Private>True</Private>
+      <HintPath>..\packages\WebGrease.1.1.0\lib\WebGrease.dll</HintPath>
+    </Reference>
+    <Reference Include="Antlr3.Runtime">
+      <Private>True</Private>
+      <HintPath>..\packages\WebGrease.1.1.0\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Component\Authentication.cs" />
+    <Compile Include="Component\AuthLoginAttribute.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\OperatorController.cs" />
+    <Compile Include="Controllers\PrizeController.cs" />
+    <Compile Include="Controllers\RackController.cs" />
+    <Compile Include="Controllers\UserController.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Models\OperatorModel.cs" />
+    <Compile Include="Models\RackModel.cs" />
+    <Compile Include="Models\RedPackEditDto.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Global.asax" />
+    <Content Include="Resources\js\JCanvas.js" />
+    <Content Include="Resources\plugin\zTree\api\apiCss\api.js" />
+    <Content Include="Resources\plugin\zTree\api\apiCss\common.css" />
+    <Content Include="Resources\plugin\zTree\api\apiCss\common_ie6.css" />
+    <Content Include="Resources\plugin\zTree\api\apiCss\img\apiMenu.gif" />
+    <Content Include="Resources\plugin\zTree\api\apiCss\img\apiMenu.png" />
+    <Content Include="Resources\plugin\zTree\api\apiCss\img\background.jpg" />
+    <Content Include="Resources\plugin\zTree\api\apiCss\img\chinese.png" />
+    <Content Include="Resources\plugin\zTree\api\apiCss\img\close.png" />
+    <Content Include="Resources\plugin\zTree\api\apiCss\img\contact-bg.png" />
+    <Content Include="Resources\plugin\zTree\api\apiCss\img\english.png" />
+    <Content Include="Resources\plugin\zTree\api\apiCss\img\header-bg.png" />
+    <Content Include="Resources\plugin\zTree\api\apiCss\img\lightbulb.png" />
+    <Content Include="Resources\plugin\zTree\api\apiCss\img\overlay_arrow.gif" />
+    <Content Include="Resources\plugin\zTree\api\apiCss\img\overlay_arrow.png" />
+    <Content Include="Resources\plugin\zTree\api\apiCss\img\overlay_bg.png" />
+    <Content Include="Resources\plugin\zTree\api\apiCss\img\overlay_close_IE6.gif" />
+    <Content Include="Resources\plugin\zTree\api\apiCss\img\zTreeStandard.gif" />
+    <Content Include="Resources\plugin\zTree\api\apiCss\img\zTreeStandard.png" />
+    <Content Include="Resources\plugin\zTree\api\apiCss\jquery-1.6.2.min.js" />
+    <Content Include="Resources\plugin\zTree\api\apiCss\jquery.ztree.core-3.5.js" />
+    <Content Include="Resources\plugin\zTree\api\apiCss\zTreeStyleForApi.css" />
+    <Content Include="Resources\plugin\zTree\api\API_cn.html" />
+    <Content Include="Resources\plugin\zTree\api\cn\fn.zTree.destroy.html" />
+    <Content Include="Resources\plugin\zTree\api\cn\fn.zTree.getZTreeObj.html" />
+    <Content Include="Resources\plugin\zTree\api\cn\fn.zTree.init.html" />
+    <Content Include="Resources\plugin\zTree\api\cn\fn.zTree._z.html" />
+    <Content Include="Resources\plugin\zTree\api\cn\setting.async.autoParam.html" />
+    <Content Include="Resources\plugin\zTree\api\cn\setting.async.contentType.html" />
+    <Content Include="Resources\plugin\zTree\api\cn\setting.async.dataFilter.html" />
+    <Content Include="Resources\plugin\zTree\api\cn\setting.async.dataType.html" />
+    <Content Include="Resources\plugin\zTree\api\cn\setting.async.enable.html" />
+    <Content Include="Resources\plugin\zTree\api\cn\setting.async.otherParam.html" />
+    <Content Include="Resources\plugin\zTree\api\cn\setting.async.type.html" />
+    <Content Include="Resources\plugin\zTree\api\cn\setting.async.url.html" />
+    <Content Include="Resources\plugin\zTree\api\cn\setting.callback.beforeAsync.html" />
+    <Content Include="Resources\plugin\zTree\api\cn\setting.callback.beforeCheck.html" />
+    <Content Include="Resources\plugin\zTree\api\cn\setting.callback.beforeClick.html" />
+    <Content Include="Resources\plugin\zTree\api\cn\setting.callback.beforeCollapse.html" />
+    <Content Include="Resources\plugin\zTree\api\cn\setting.callback.beforeDblClick.html" />
+    <Content Include="Resources\plugin\zTree\api\cn\setting.callback.beforeDrag.html" />
+    <Content Include="Resources\plugin\zTree\api\cn\setting.callback.beforeDragOpen.html" />
+    <Content Include="Resources\plugin\zTree\api\cn\setting.callback.beforeDrop.html" />
+    <Content Include="Resources\plugin\zTree\api\cn\setting.callback.beforeEditName.html" />
+    <Content Include="Resources\plugin\zTree\api\cn\setting.callback.beforeExpand.html" />
+    <Content Include="Resources\plugin\zTree\api\cn\setting.callback.beforeMouseDown.html" />
+    <Content Include="Resources\plugin\zTree\api\cn\setting.callback.beforeMouseUp.html" />
+    <Content Include="Resources\plugin\zTree\api\cn\setting.callback.beforeRemove.html" />
+    <Content Include="Resources\plugin\zTree\api\cn\setting.callback.beforeRename.html" />
+    <Content Include="Resources\plugin\zTree\api\cn\setting.callback.beforeRightClick.html" />
+    <Content Include="Resources\plugin\zTree\api\cn\setting.callback.onAsyncError.html" />
+    <Content Include="Resources\plugin\zTree\api\cn\setting.callback.onAsyncSuccess.html" />
+    <Content Include="Resources\plugin\zTree\api\cn\setting.callback.onCheck.html" />
+    <Content Include="Resources\plugin\zTree\api\cn\setting.callback.onClick.html" />
+    <Content Include="Resources\plugin\zTree\api\cn\setting.callback.onCollapse.html" />
+    <Content Include="Resources\plugin\zTree\api\cn\setting.callback.onDblClick.html" />
+    <Content Include="Resources\plugin\zTree\api\cn\setting.callback.onDrag.html" />
+    <Content Include="Resources\plugin\zTree\api\cn\setting.callback.onDragMove.html" />
+    <Content Include="Resources\plugin\zTree\api\cn\setting.callback.onDrop.html" />
+    <Content Include="Resources\plugin\zTree\api\cn\setting.callback.onExpand.html" />
+    <Content Include="Resources\plugin\zTree\api\cn\setting.callback.onMouseDown.html" />
+    <Content Include="Resources\plugin\zTree\api\cn\setting.callback.onMouseUp.html" />
+    <Content Include="Resources\plugin\zTree\api\cn\setting.callback.onNodeCreated.html" />
+    <Content Include="Resources\plugin\zTree\api\cn\setting.callback.onRemove.html" />
+    <Content Include="Resources\plugin\zTree\api\cn\setting.callback.onRename.html" />
+    <Content Include="Resources\plugin\zTree\api\cn\setting.callback.onRightClick.html" />
+    <Content Include="Resources\plugin\zTree\api\cn\setting.check.autoCheckTrigger.html" />
+    <Content Include="Resources\plugin\zTree\api\cn\setting.check.chkboxType.html" />
+    <Content Include="Resources\plugin\zTree\api\cn\setting.check.chkDisabledInherit.html" />
+    <Content Include="Resources\plugin\zTree\api\cn\setting.check.chkStyle.html" />
+    <Content Include="Resources\plugin\zTree\api\cn\setting.check.enable.html" />
+    <Content Include="Resources\plugin\zTree\api\cn\setting.check.nocheckInherit.html" />
+    <Content Include="Resources\plugin\zTree\api\cn\setting.check.radioType.html" />
+    <Content Include="Resources\plugin\zTree\api\cn\setting.data.keep.leaf.html" />
+    <Content Include="Resources\plugin\zTree\api\cn\setting.data.keep.parent.html" />
+    <Content Include="Resources\plugin\zTree\api\cn\setting.data.key.checked.html" />
+    <Content Include="Resources\plugin\zTree\api\cn\setting.data.key.children.html" />
+    <Content Include="Resources\plugin\zTree\api\cn\setting.data.key.name.html" />
+    <Content Include="Resources\plugin\zTree\api\cn\setting.data.key.title.html" />
+    <Content Include="Resources\plugin\zTree\api\cn\setting.data.key.url.html" />
+    <Content Include="Resources\plugin\zTree\api\cn\setting.data.simpleData.enable.html" />
+    <Content Include="Resources\plugin\zTree\api\cn\setting.data.simpleData.idKey.html" />
+    <Content Include="Resources\plugin\zTree\api\cn\setting.data.simpleData.pIdKey.html" />
+    <Content Include="Resources\plugin\zTree\api\cn\setting.data.simpleData.rootPId.html" />
+    <Content Include="Resources\plugin\zTree\api\cn\setting.edit.drag.autoExpandTrigger.html" />
+    <Content Include="Resources\plugin\zTree\api\cn\setting.edit.drag.autoOpenTime.html" />
+    <Content Include="Resources\plugin\zTree\api\cn\setting.edit.drag.borderMax.html" />
+    <Content Include="Resources\plugin\zTree\api\cn\setting.edit.drag.borderMin.html" />
+    <Content Include="Resources\plugin\zTree\api\cn\setting.edit.drag.inner.html" />
+    <Content Include="Resources\plugin\zTree\api\cn\setting.edit.drag.isCopy.html" />
+    <Content Include="Resources\plugin\zTree\api\cn\setting.edit.drag.isMove.html" />
+    <Content Include="Resources\plugin\zTree\api\cn\setting.edit.drag.maxShowNodeNum.html" />
+    <Content Include="Resources\plugin\zTree\api\cn\setting.edit.drag.minMoveSize.html" />
+    <Content Include="Resources\plugin\zTree\api\cn\setting.edit.drag.next.html" />
+    <Content Include="Resources\plugin\zTree\api\cn\setting.edit.drag.prev.html" />
+    <Content Include="Resources\plugin\zTree\api\cn\setting.edit.editNameSelectAll.html" />
+    <Content Include="Resources\plugin\zTree\api\cn\setting.edit.enable.html" />
+    <Content Include="Resources\plugin\zTree\api\cn\setting.edit.removeTitle.html" />
+    <Content Include="Resources\plugin\zTree\api\cn\setting.edit.renameTitle.html" />
+    <Content Include="Resources\plugin\zTree\api\cn\setting.edit.showRemoveBtn.html" />
+    <Content Include="Resources\plugin\zTree\api\cn\setting.edit.showRenameBtn.html" />
+    <Content Include="Resources\plugin\zTree\api\cn\setting.treeId.html" />
+    <Content Include="Resources\plugin\zTree\api\cn\setting.treeObj.html" />
+    <Content Include="Resources\plugin\zTree\api\cn\setting.view.addDiyDom.html" />
+    <Content Include="Resources\plugin\zTree\api\cn\setting.view.addHoverDom.html" />
+    <Content Include="Resources\plugin\zTree\api\cn\setting.view.autoCancelSelected.html" />
+    <Content Include="Resources\plugin\zTree\api\cn\setting.view.dblClickExpand.html" />
+    <Content Include="Resources\plugin\zTree\api\cn\setting.view.expandSpeed.html" />
+    <Content Include="Resources\plugin\zTree\api\cn\setting.view.fontCss.html" />
+    <Content Include="Resources\plugin\zTree\api\cn\setting.view.nameIsHTML.html" />
+    <Content Include="Resources\plugin\zTree\api\cn\setting.view.removeHoverDom.html" />
+    <Content Include="Resources\plugin\zTree\api\cn\setting.view.selectedMulti.html" />
+    <Content Include="Resources\plugin\zTree\api\cn\setting.view.showIcon.html" />
+    <Content Include="Resources\plugin\zTree\api\cn\setting.view.showLine.html" />
+    <Content Include="Resources\plugin\zTree\api\cn\setting.view.showTitle.html" />
+    <Content Include="Resources\plugin\zTree\api\cn\setting.view.txtSelectedEnable.html" />
+    <Content Include="Resources\plugin\zTree\api\cn\treeNode.checked.html" />
+    <Content Include="Resources\plugin\zTree\api\cn\treeNode.checkedOld.html" />
+    <Content Include="Resources\plugin\zTree\api\cn\treeNode.check_Child_State.html" />
+    <Content Include="Resources\plugin\zTree\api\cn\treeNode.check_Focus.html" />
+    <Content Include="Resources\plugin\zTree\api\cn\treeNode.children.html" />
+    <Content Include="Resources\plugin\zTree\api\cn\treeNode.chkDisabled.html" />
+    <Content Include="Resources\plugin\zTree\api\cn\treeNode.click.html" />
+    <Content Include="Resources\plugin\zTree\api\cn\treeNode.diy.html" />
+    <Content Include="Resources\plugin\zTree\api\cn\treeNode.editNameFlag.html" />
+    <Content Include="Resources\plugin\zTree\api\cn\treeNode.getCheckStatus.html" />
+    <Content Include="Resources\plugin\zTree\api\cn\treeNode.getNextNode.html" />
+    <Content Include="Resources\plugin\zTree\api\cn\treeNode.getParentNode.html" />
+    <Content Include="Resources\plugin\zTree\api\cn\treeNode.getPreNode.html" />
+    <Content Include="Resources\plugin\zTree\api\cn\treeNode.halfCheck.html" />
+    <Content Include="Resources\plugin\zTree\api\cn\treeNode.icon.html" />
+    <Content Include="Resources\plugin\zTree\api\cn\treeNode.iconClose.html" />
+    <Content Include="Resources\plugin\zTree\api\cn\treeNode.iconOpen.html" />
+    <Content Include="Resources\plugin\zTree\api\cn\treeNode.iconSkin.html" />
+    <Content Include="Resources\plugin\zTree\api\cn\treeNode.isAjaxing.html" />
+    <Content Include="Resources\plugin\zTree\api\cn\treeNode.isFirstNode.html" />
+    <Content Include="Resources\plugin\zTree\api\cn\treeNode.isHidden.html" />
+    <Content Include="Resources\plugin\zTree\api\cn\treeNode.isHover.html" />
+    <Content Include="Resources\plugin\zTree\api\cn\treeNode.isLastNode.html" />
+    <Content Include="Resources\plugin\zTree\api\cn\treeNode.isParent.html" />
+    <Content Include="Resources\plugin\zTree\api\cn\treeNode.level.html" />
+    <Content Include="Resources\plugin\zTree\api\cn\treeNode.name.html" />
+    <Content Include="Resources\plugin\zTree\api\cn\treeNode.nocheck.html" />
+    <Content Include="Resources\plugin\zTree\api\cn\treeNode.open.html" />
+    <Content Include="Resources\plugin\zTree\api\cn\treeNode.parentTId.html" />
+    <Content Include="Resources\plugin\zTree\api\cn\treeNode.target.html" />
+    <Content Include="Resources\plugin\zTree\api\cn\treeNode.tId.html" />
+    <Content Include="Resources\plugin\zTree\api\cn\treeNode.url.html" />
+    <Content Include="Resources\plugin\zTree\api\cn\treeNode.zAsync.html" />
+    <Content Include="Resources\plugin\zTree\api\cn\zTreeObj.addNodes.html" />
+    <Content Include="Resources\plugin\zTree\api\cn\zTreeObj.cancelEditName.html" />
+    <Content Include="Resources\plugin\zTree\api\cn\zTreeObj.cancelSelectedNode.html" />
+    <Content Include="Resources\plugin\zTree\api\cn\zTreeObj.checkAllNodes.html" />
+    <Content Include="Resources\plugin\zTree\api\cn\zTreeObj.checkNode.html" />
+    <Content Include="Resources\plugin\zTree\api\cn\zTreeObj.copyNode.html" />
+    <Content Include="Resources\plugin\zTree\api\cn\zTreeObj.destroy.html" />
+    <Content Include="Resources\plugin\zTree\api\cn\zTreeObj.editName.html" />
+    <Content Include="Resources\plugin\zTree\api\cn\zTreeObj.expandAll.html" />
+    <Content Include="Resources\plugin\zTree\api\cn\zTreeObj.expandNode.html" />
+    <Content Include="Resources\plugin\zTree\api\cn\zTreeObj.getChangeCheckedNodes.html" />
+    <Content Include="Resources\plugin\zTree\api\cn\zTreeObj.getCheckedNodes.html" />
+    <Content Include="Resources\plugin\zTree\api\cn\zTreeObj.getNodeByParam.html" />
+    <Content Include="Resources\plugin\zTree\api\cn\zTreeObj.getNodeByTId.html" />
+    <Content Include="Resources\plugin\zTree\api\cn\zTreeObj.getNodeIndex.html" />
+    <Content Include="Resources\plugin\zTree\api\cn\zTreeObj.getNodes.html" />
+    <Content Include="Resources\plugin\zTree\api\cn\zTreeObj.getNodesByFilter.html" />
+    <Content Include="Resources\plugin\zTree\api\cn\zTreeObj.getNodesByParam.html" />
+    <Content Include="Resources\plugin\zTree\api\cn\zTreeObj.getNodesByParamFuzzy.html" />
+    <Content Include="Resources\plugin\zTree\api\cn\zTreeObj.getSelectedNodes.html" />
+    <Content Include="Resources\plugin\zTree\api\cn\zTreeObj.hideNode.html" />
+    <Content Include="Resources\plugin\zTree\api\cn\zTreeObj.hideNodes.html" />
+    <Content Include="Resources\plugin\zTree\api\cn\zTreeObj.moveNode.html" />
+    <Content Include="Resources\plugin\zTree\api\cn\zTreeObj.reAsyncChildNodes.html" />
+    <Content Include="Resources\plugin\zTree\api\cn\zTreeObj.refresh.html" />
+    <Content Include="Resources\plugin\zTree\api\cn\zTreeObj.removeChildNodes.html" />
+    <Content Include="Resources\plugin\zTree\api\cn\zTreeObj.removeNode.html" />
+    <Content Include="Resources\plugin\zTree\api\cn\zTreeObj.selectNode.html" />
+    <Content Include="Resources\plugin\zTree\api\cn\zTreeObj.setChkDisabled.html" />
+    <Content Include="Resources\plugin\zTree\api\cn\zTreeObj.setEditable.html" />
+    <Content Include="Resources\plugin\zTree\api\cn\zTreeObj.setting.html" />
+    <Content Include="Resources\plugin\zTree\api\cn\zTreeObj.showNode.html" />
+    <Content Include="Resources\plugin\zTree\api\cn\zTreeObj.showNodes.html" />
+    <Content Include="Resources\plugin\zTree\api\cn\zTreeObj.transformToArray.html" />
+    <Content Include="Resources\plugin\zTree\api\cn\zTreeObj.transformTozTreeNodes.html" />
+    <Content Include="Resources\plugin\zTree\api\cn\zTreeObj.updateNode.html" />
+    <Content Include="Resources\plugin\zTree\css\demo.css" />
+    <Content Include="Resources\plugin\zTree\css\zTreeStyle\img\diy\1_close.png" />
+    <Content Include="Resources\plugin\zTree\css\zTreeStyle\img\diy\1_open.png" />
+    <Content Include="Resources\plugin\zTree\css\zTreeStyle\img\diy\2.png" />
+    <Content Include="Resources\plugin\zTree\css\zTreeStyle\img\diy\3.png" />
+    <Content Include="Resources\plugin\zTree\css\zTreeStyle\img\diy\4.png" />
+    <Content Include="Resources\plugin\zTree\css\zTreeStyle\img\diy\5.png" />
+    <Content Include="Resources\plugin\zTree\css\zTreeStyle\img\diy\6.png" />
+    <Content Include="Resources\plugin\zTree\css\zTreeStyle\img\diy\7.png" />
+    <Content Include="Resources\plugin\zTree\css\zTreeStyle\img\diy\8.png" />
+    <Content Include="Resources\plugin\zTree\css\zTreeStyle\img\diy\9.png" />
+    <Content Include="Resources\plugin\zTree\css\zTreeStyle\img\line_conn.gif" />
+    <Content Include="Resources\plugin\zTree\css\zTreeStyle\img\loading.gif" />
+    <Content Include="Resources\plugin\zTree\css\zTreeStyle\img\zTreeStandard.gif" />
+    <Content Include="Resources\plugin\zTree\css\zTreeStyle\img\zTreeStandard.png" />
+    <Content Include="Resources\plugin\zTree\css\zTreeStyle\zTreeStyle.css" />
+    <Content Include="Resources\plugin\zTree\demo\cn\bigdata\common.html" />
+    <Content Include="Resources\plugin\zTree\demo\cn\bigdata\diy_async.html" />
+    <Content Include="Resources\plugin\zTree\demo\cn\bigdata\page.html" />
+    <Content Include="Resources\plugin\zTree\demo\cn\core\async.html" />
+    <Content Include="Resources\plugin\zTree\demo\cn\core\async_fun.html" />
+    <Content Include="Resources\plugin\zTree\demo\cn\core\click.html" />
+    <Content Include="Resources\plugin\zTree\demo\cn\core\custom_font.html" />
+    <Content Include="Resources\plugin\zTree\demo\cn\core\custom_icon.html" />
+    <Content Include="Resources\plugin\zTree\demo\cn\core\custom_iconSkin.html" />
+    <Content Include="Resources\plugin\zTree\demo\cn\core\expand.html" />
+    <Content Include="Resources\plugin\zTree\demo\cn\core\noicon.html" />
+    <Content Include="Resources\plugin\zTree\demo\cn\core\noline.html" />
+    <Content Include="Resources\plugin\zTree\demo\cn\core\otherMouse.html" />
+    <Content Include="Resources\plugin\zTree\demo\cn\core\searchNodes.html" />
+    <Content Include="Resources\plugin\zTree\demo\cn\core\simpleData.html" />
+    <Content Include="Resources\plugin\zTree\demo\cn\core\standardData.html" />
+    <Content Include="Resources\plugin\zTree\demo\cn\core\update_fun.html" />
+    <Content Include="Resources\plugin\zTree\demo\cn\core\url.html" />
+    <Content Include="Resources\plugin\zTree\demo\cn\excheck\checkbox.html" />
+    <Content Include="Resources\plugin\zTree\demo\cn\excheck\checkbox_chkDisabled.html" />
+    <Content Include="Resources\plugin\zTree\demo\cn\excheck\checkbox_count.html" />
+    <Content Include="Resources\plugin\zTree\demo\cn\excheck\checkbox_fun.html" />
+    <Content Include="Resources\plugin\zTree\demo\cn\excheck\checkbox_halfCheck.html" />
+    <Content Include="Resources\plugin\zTree\demo\cn\excheck\checkbox_nocheck.html" />
+    <Content Include="Resources\plugin\zTree\demo\cn\excheck\radio.html" />
+    <Content Include="Resources\plugin\zTree\demo\cn\excheck\radio_chkDisabled.html" />
+    <Content Include="Resources\plugin\zTree\demo\cn\excheck\radio_fun.html" />
+    <Content Include="Resources\plugin\zTree\demo\cn\excheck\radio_halfCheck.html" />
+    <Content Include="Resources\plugin\zTree\demo\cn\excheck\radio_nocheck.html" />
+    <Content Include="Resources\plugin\zTree\demo\cn\exedit\async_edit.html" />
+    <Content Include="Resources\plugin\zTree\demo\cn\exedit\drag.html" />
+    <Content Include="Resources\plugin\zTree\demo\cn\exedit\drag_fun.html" />
+    <Content Include="Resources\plugin\zTree\demo\cn\exedit\drag_super.html" />
+    <Content Include="Resources\plugin\zTree\demo\cn\exedit\edit.html" />
+    <Content Include="Resources\plugin\zTree\demo\cn\exedit\edit_fun.html" />
+    <Content Include="Resources\plugin\zTree\demo\cn\exedit\edit_super.html" />
+    <Content Include="Resources\plugin\zTree\demo\cn\exedit\multiTree.html" />
+    <Content Include="Resources\plugin\zTree\demo\cn\exhide\checkbox.html" />
+    <Content Include="Resources\plugin\zTree\demo\cn\exhide\common.html" />
+    <Content Include="Resources\plugin\zTree\demo\cn\exhide\radio.html" />
+    <Content Include="Resources\plugin\zTree\demo\cn\index.html" />
+    <Content Include="Resources\plugin\zTree\demo\cn\super\asyncForAll.html" />
+    <Content Include="Resources\plugin\zTree\demo\cn\super\checkbox_radio.html" />
+    <Content Include="Resources\plugin\zTree\demo\cn\super\diydom.html" />
+    <Content Include="Resources\plugin\zTree\demo\cn\super\dragWithOther.html" />
+    <Content Include="Resources\plugin\zTree\demo\cn\super\left_menu.html" />
+    <Content Include="Resources\plugin\zTree\demo\cn\super\left_menuForOutLook.gif" />
+    <Content Include="Resources\plugin\zTree\demo\cn\super\left_menuForOutLook.html" />
+    <Content Include="Resources\plugin\zTree\demo\cn\super\left_menuForOutLook.png" />
+    <Content Include="Resources\plugin\zTree\demo\cn\super\oneclick.html" />
+    <Content Include="Resources\plugin\zTree\demo\cn\super\oneroot.html" />
+    <Content Include="Resources\plugin\zTree\demo\cn\super\rightClickMenu.html" />
+    <Content Include="Resources\plugin\zTree\demo\cn\super\select_menu.html" />
+    <Content Include="Resources\plugin\zTree\demo\cn\super\select_menu_checkbox.html" />
+    <Content Include="Resources\plugin\zTree\demo\cn\super\select_menu_radio.html" />
+    <Content Include="Resources\plugin\zTree\demo\cn\super\singlepath.html" />
+    <Content Include="Resources\plugin\zTree\js\jquery.ztree.all-3.5.js" />
+    <Content Include="Resources\plugin\zTree\js\jquery.ztree.all-3.5.min.js" />
+    <Content Include="Resources\plugin\zTree\js\jquery.ztree.core-3.5.js" />
+    <Content Include="Resources\plugin\zTree\js\jquery.ztree.core-3.5.min.js" />
+    <Content Include="Resources\plugin\zTree\js\jquery.ztree.excheck-3.5.js" />
+    <Content Include="Resources\plugin\zTree\js\jquery.ztree.excheck-3.5.min.js" />
+    <Content Include="Resources\plugin\zTree\js\jquery.ztree.exedit-3.5.js" />
+    <Content Include="Resources\plugin\zTree\js\jquery.ztree.exedit-3.5.min.js" />
+    <Content Include="Resources\plugin\zTree\js\jquery.ztree.exedit.js" />
+    <Content Include="Resources\plugin\zTree\js\jquery.ztree.exhide-3.5.js" />
+    <Content Include="Resources\plugin\zTree\js\jquery.ztree.exhide-3.5.min.js" />
+    <Content Include="Resources\template\buttons.html" />
+    <Content Include="Resources\template\calendar.html" />
+    <Content Include="Resources\template\charts.html" />
+    <Content Include="Resources\template\chat.html" />
+    <Content Include="Resources\template\css\bootstrap-responsive.min.css" />
+    <Content Include="Resources\template\css\bootstrap-wysihtml5.css" />
+    <Content Include="Resources\template\css\bootstrap.min.css" />
+    <Content Include="Resources\template\css\colorpicker.css" />
+    <Content Include="Resources\template\css\datepicker.css" />
+    <Content Include="Resources\css\fh.dev.css" />
+    <Content Include="Resources\template\css\fullcalendar.css" />
+    <Content Include="Resources\template\css\jquery.datatable.css" />
+    <Content Include="Resources\template\css\jquery.gritter.css" />
+    <Content Include="Resources\template\css\matrix-login.css" />
+    <Content Include="Resources\template\css\matrix-media.css" />
+    <Content Include="Resources\template\css\matrix-style.css" />
+    <Content Include="Resources\template\css\select2.css" />
+    <Content Include="Resources\template\css\uniform.css" />
+    <Content Include="Resources\template\dashboard.html" />
+    <Content Include="Resources\template\error403.html" />
+    <Content Include="Resources\template\error404.html" />
+    <Content Include="Resources\template\error405.html" />
+    <Content Include="Resources\template\error500.html" />
+    <Content Include="Resources\template\font-awesome\css\font-awesome.css" />
+    <Content Include="Resources\template\form-common.html" />
+    <Content Include="Resources\template\form-validation.html" />
+    <Content Include="Resources\template\form-wizard.html" />
+    <Content Include="Resources\template\gallery.html" />
+    <Content Include="Resources\template\grid.html" />
+    <Content Include="Resources\template\images\backgrounds\calActiveBg.html" />
+    <Content Include="Resources\template\images\gallery\imgbox3.html" />
+    <Content Include="Resources\template\img\alpha.html" />
+    <Content Include="Resources\template\img\breadcrumb.png" />
+    <Content Include="Resources\template\img\demo\av1.jpg" />
+    <Content Include="Resources\template\img\demo\av2.jpg" />
+    <Content Include="Resources\template\img\demo\av3.jpg" />
+    <Content Include="Resources\template\img\demo\av4.jpg" />
+    <Content Include="Resources\template\img\demo\av5.jpg" />
+    <Content Include="Resources\template\img\demo\demo-image1.jpg" />
+    <Content Include="Resources\template\img\demo\demo-image2.jpg" />
+    <Content Include="Resources\template\img\demo\demo-image3.jpg" />
+    <Content Include="Resources\template\img\demo\envelope.png" />
+    <Content Include="Resources\template\img\gallery\imgbox1.jpg" />
+    <Content Include="Resources\template\img\gallery\imgbox2.jpg" />
+    <Content Include="Resources\template\img\gallery\imgbox3.jpg" />
+    <Content Include="Resources\template\img\gallery\imgbox4.jpg" />
+    <Content Include="Resources\template\img\gallery\imgbox5.jpg" />
+    <Content Include="Resources\template\img\glyphicons-halflings-white.png" />
+    <Content Include="Resources\template\img\glyphicons-halflings.html" />
+    <Content Include="Resources\template\img\gritter.png" />
+    <Content Include="Resources\template\img\hue.png" />
+    <Content Include="Resources\template\img\larrow.png" />
+    <Content Include="Resources\template\img\line.png" />
+    <Content Include="Resources\template\img\logo.png" />
+    <Content Include="Resources\template\img\menu-active.png" />
+    <Content Include="Resources\template\img\rarrow.png" />
+    <Content Include="Resources\template\img\saturation.png" />
+    <Content Include="Resources\template\img\select2.png" />
+    <Content Include="Resources\template\img\spinner.gif" />
+    <Content Include="Resources\template\img\sprite.png" />
+    <Content Include="Resources\template\index.html" />
+    <Content Include="Resources\template\index2.html" />
+    <Content Include="Resources\template\interface.html" />
+    <Content Include="Resources\template\invoice.html" />
+    <Content Include="Resources\template\js\bootstrap-colorpicker.js" />
+    <Content Include="Resources\template\js\bootstrap-datepicker.js" />
+    <Content Include="Resources\template\js\bootstrap-wysihtml5.js" />
+    <Content Include="Resources\template\js\bootstrap.min.js" />
+    <Content Include="Resources\template\js\excanvas.min.js" />
+    <Content Include="Resources\js\fh.dev.js" />
+    <Content Include="Resources\template\js\fullcalendar.min.js" />
+    <Content Include="Resources\template\js\jquery.dataTables.1.10.js" />
+    <Content Include="Resources\template\js\jquery.dataTables.min.1.10.js" />
+    <Content Include="Resources\template\js\jquery.dataTables.min.js" />
+    <Content Include="Resources\template\js\jquery.flot.min.js" />
+    <Content Include="Resources\template\js\jquery.flot.pie.min.js" />
+    <Content Include="Resources\template\js\jquery.flot.resize.min.js" />
+    <Content Include="Resources\template\js\jquery.gritter.min.js" />
+    <Content Include="Resources\template\js\jquery.min.js" />
+    <Content Include="Resources\template\js\jquery.peity.min.js" />
+    <Content Include="Resources\template\js\jquery.toggle.buttons.html" />
+    <Content Include="Resources\template\js\jquery.ui.custom.js" />
+    <Content Include="Resources\template\js\jquery.uniform.js" />
+    <Content Include="Resources\template\js\jquery.validate.js" />
+    <Content Include="Resources\template\js\jquery.wizard.js" />
+    <Content Include="Resources\template\js\maruti.html" />
+    <Content Include="Resources\template\js\masked.js" />
+    <Content Include="Resources\template\js\matrix.calendar.js" />
+    <Content Include="Resources\template\js\matrix.charts.js" />
+    <Content Include="Resources\template\js\matrix.chat.js" />
+    <Content Include="Resources\template\js\matrix.dashboard.js" />
+    <Content Include="Resources\template\js\matrix.form_common.js" />
+    <Content Include="Resources\template\js\matrix.form_validation.js" />
+    <Content Include="Resources\template\js\matrix.interface.js" />
+    <Content Include="Resources\template\js\matrix.js" />
+    <Content Include="Resources\template\js\matrix.login.js" />
+    <Content Include="Resources\template\js\matrix.popover.js" />
+    <Content Include="Resources\template\js\matrix.tables.js" />
+    <Content Include="Resources\template\js\matrix.wizard.js" />
+    <Content Include="Resources\template\js\select2.min.js" />
+    <Content Include="Resources\template\js\wysihtml5-0.3.0.js" />
+    <Content Include="Resources\template\login.html" />
+    <Content Include="Resources\template\tables.html" />
+    <Content Include="Resources\template\widgets.html" />
+    <Content Include="Web.config" />
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Views\Web.config" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\FH.System.Domain\JFB.Systems.Domain.csproj">
+      <Project>{6E286B01-0768-48A3-B057-75EFB47213BF}</Project>
+      <Name>JFB.Systems.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FH.Utils\JFB.Utils.csproj">
+      <Project>{48986C93-F7FD-4545-9239-FB15B5C65C5D}</Project>
+      <Name>JFB.Utils</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\JFB.Api\JFB.Api.csproj">
+      <Project>{47710260-751f-4455-91d0-b9a7a18d2031}</Project>
+      <Name>JFB.Api</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\JFB.Business.Domain\JFB.Business.Domain.csproj">
+      <Project>{4162a519-4cf5-4290-a64c-fa8e87c8f87d}</Project>
+      <Name>JFB.Business.Domain</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Config\Appsettings.config" />
+    <Content Include="Config\log4net.config" />
+    <Content Include="Config\Unity.config" />
+    <Content Include="Config\ViCore.config" />
+    <None Include="Resources\plugin\zTree\demo\cn\asyncData\getNodes.php" />
+    <None Include="Resources\plugin\zTree\demo\cn\asyncData\getNodesForBigData.php" />
+    <None Include="Resources\template\font-awesome\css\Descr.WD3" />
+    <None Include="Resources\template\font-awesome\font\Descr.WD3" />
+    <None Include="Resources\template\font-awesome\font\fontawesome-webfont.eot" />
+    <None Include="Resources\template\font-awesome\font\fontawesome-webfont.eot%40" />
+    <None Include="Resources\template\font-awesome\font\fontawesome-webfont.ttf" />
+    <None Include="Resources\template\font-awesome\font\fontawesome-webfont.woff" />
+    <None Include="Resources\template\images\backgrounds\blank2" />
+    <None Include="Resources\template\images\backgrounds\Descr.WD3" />
+    <None Include="Resources\template\images\backgrounds\skype_3Asuniljoshi19%40call" />
+    <None Include="Resources\template\img\demo\Descr.WD3" />
+    <None Include="Resources\template\img\Descr.WD3" />
+    <None Include="Resources\template\img\gallery\Descr.WD3" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Operator\Index.cshtml" />
+    <Content Include="Views\Operator\Edit.cshtml" />
+    <Content Include="Views\Operator\Role.cshtml" />
+    <Content Include="Views\Operator\_SubMenu.cshtml" />
+    <Content Include="Views\Operator\RoleEdit.cshtml" />
+    <Content Include="Views\Rack\Map.cshtml" />
+    <Content Include="Views\Prize\Index.cshtml" />
+    <Content Include="Views\User\Login.cshtml" />
+    <Content Include="Views\Prize\Edit.cshtml" />
+    <Content Include="Views\Prize\UserList.cshtml" />
+  </ItemGroup>
+  <ItemGroup />
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>False</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>39545</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>
+          </IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+</Project>

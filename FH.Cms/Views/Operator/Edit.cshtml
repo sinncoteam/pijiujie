@@ -1,0 +1,113 @@
+﻿@{
+    ViewBag.Title = "管理员编辑";
+}
+@model JFB.Cms.Models.OperatorEditDto
+<script type="text/javascript">
+    $(function ()
+    {
+        $("#form1").validate({
+            rules: {
+                loginname: {
+                    required: true
+                },
+                username: {
+                    required: true
+                },
+                userpass: {
+                    required: true
+                }
+            },
+            messages: {
+                loginname: "请输入管理员登录名",
+                username: "请输入管理员姓名",
+                userpass: "请输入管理员密码"
+            },
+            errorClass: "help-inline",
+            errorElement: "span",
+            highlight: function (element, errorClass, validClass)
+            {
+                $(element).parents('.control-group').removeClass('success').addClass('error');
+            },
+            unhighlight: function (element, errorClass, validClass)
+            {
+                $(element).parents('.control-group').removeClass('error').addClass('success');
+            },
+            submitHandler: function (form)
+            {
+                jQuery.ajax({
+                    data: $(form).serialize(), type: "post", dataType: "json", url: "/operator/editsave",
+                    success: function (r)
+                    {
+                        if (r.Success)
+                        {
+                            sysevt.showtip("保存成功", "", function ()
+                            {
+                                location.href = '/operator/';
+                            });
+                        }
+                        else
+                        {
+                            sysevt.showtip(r.Msg);
+                        }
+                    },
+                    error: function (ex)
+                    {
+                        sysevt.showtip("更新失败！" + ex.statusText);
+                    }
+                });
+                return false;
+            }
+        });
+    });
+</script>
+<div id="content">
+<div id="content-header">
+        <div id="breadcrumb"> <a href="/" title="返回首页" class="tip-bottom"><i class="icon-home"></i> 首页</a> <a href="javascript:;"  class="tip-bottom"> 管理员编辑</a></div>
+        <div class="page_title_area">
+            <div class="page_title">管理员编辑</div>
+            @Html.Partial("_SubMenu") 
+        </div>
+    </div>
+    <div class="container-fluid">        
+        <div class="row-fluid">
+          <div class="span12">
+            <div class="widget-box">
+                <div class="widget-title"> <span class="icon"><i class="icon-th"></i></span>  
+                    <div class="tbl_btn">
+                    创建/编辑管理员信息
+                     </div>
+                  </div>
+                <div class="widget-content nopadding">
+                    <form class="form-horizontal" method="post" action="#" name="form1" id="form1" novalidate="novalidate">
+                        <input type="hidden" value="@Model.OperInfo.Id" name="id" />
+                      <div class="control-group">
+                        <label class="control-label"><span class="required_form">*</span> 帐号名称</label>
+                        <div class="controls">
+                          <input type="text" class="span6" name="loginname" id="loginname" value="@Model.OperInfo.Loginname" />
+                        </div>
+                      </div>
+                      <div class="control-group">
+                        <label class="control-label"><span class="required_form">*</span> 姓名</label>
+                        <div class="controls">
+                          <input type="text" class="span6" name="username" id="username" value="@Model.OperInfo.Username" />
+                        </div>
+                      </div>
+                      @if (Model.OperInfo.Id == 0)
+                      {
+                      <div class="control-group">
+                        <label class="control-label"><span class="required_form">*</span> 密码</label>
+                        <div class="controls">
+                          <input type="password" class="span6" name="userpass" id="userpass" />
+                        </div>
+                      </div>
+                      }
+                      <div class="form-actions">
+                        <input type="submit" value="确 定" class="btn btn-success">
+                      </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        </div>
+    </div>
+</div>

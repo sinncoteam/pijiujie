@@ -1,0 +1,222 @@
+﻿@{
+    ViewBag.Title = "红包管理";
+}
+
+<script type="text/javascript">
+    var tblevt =
+{
+    aSelected: [],
+    initTableOp: function ()
+    {
+        this.aSelected = [];
+        jQuery("#optable1").dataTable({
+            "sPaginationType": "full_numbers",
+            //"aaSortingFixed": [[0, 'asc']],
+            "bPaginate": true,
+            "bJQueryUI": true,
+            "aLengthMenu": [[20, 50, 100], [20, 50, 100]],
+            "bSort": false,
+            "bProcessing": true,
+            "bStateSave": true,
+            "iCookieDuration": 300,
+            "bServerSide": true,
+            "bDestroy": true,
+            "bSortCellsTop": true,
+            "bFilter": true,
+            //            "oSearch": { "sSearch": "" },
+            "sAjaxSource": '/prize/indexlist',"type":"post",
+            "aoColumns":
+               [
+                { "mDataProp": "ID", 'sClass': 'center', "mRender": function (data, type)
+                {
+                    return "<input type='checkbox' value='" + data + "' id='chk_main_'" + data + "' name='chkids' />";
+                }
+                },
+                { "mDataProp": "ID", 'sClass': 'center' },
+                { "mDataProp": "RbTotal", 'sClass': 'center' },
+                { "mDataProp": "RbCount", 'sClass': 'center' },
+                { "mDataProp": "RbMoney", 'sClass': 'center' },
+                {
+                    "mDataProp": "CreateTime", 'sClass': 'center', "mRender": function (data, type)
+                {
+                    return sysevt.UnixToDate(data, true);
+                }
+                },
+                {
+                    "mDataProp": "UpdateTime", 'sClass': 'center', "mRender": function (data, type)
+                {
+                    return sysevt.UnixToDate(data, true);
+                }
+                },
+                { "mDataProp": "GetPercent", 'sClass': 'center' },
+                { "mDataProp": "IsValid", 'sClass': 'center' },
+                { "mDataProp": "ID", 'sClass': 'center' }
+                ],
+            "aoColumnDefs":
+            [
+                { "aTargets": [9], "mRender": function (data, type, full)
+                {
+                    return "<input type='button' class='btn btn-success btn-mini' onclick='location.href=\"/prize/edit/" + data + "\";' value='编 辑' /> ";
+                }
+                }
+            ],
+            "fnDrawCallback": function (oSettings)
+            {
+                //jQuery('input:checkbox,input:radio').uniform();
+                //jQuery.uniform.update();
+            },
+            "fnServerParams": function (aoData)
+            {
+                //aoData.push({ "name": "username", "value": jQuery("#uname").val() });
+            }
+        });
+    },
+    initevt: function ()
+    {
+        tblevt.aSelected = [];
+        $('#optable1 tbody tr').live('click', function ()
+        {
+            var chk = $(this).children().children("input[type=checkbox]").eq(0);
+            var vl = chk.val();
+            var index = $.inArray(vl, tblevt.aSelected);
+            if (index == -1)
+            {
+                chk.attr("checked", "checked");
+                tblevt.aSelected.push(vl);
+            }
+            else
+            {
+                chk.removeAttr("checked");
+                tblevt.aSelected.splice(index, 1);
+            }
+            $(this).toggleClass('row_selected');
+        });
+    },
+    selectall: function (t)
+    {
+        if ($(t).attr("checked") == "checked")
+        {
+            $("#optable1 tbody tr").each(function ()
+            {
+                $(this).addClass("row_selected");
+            });
+            $("#optable1 tbody input[type=checkbox]").each(function ()
+            {
+                var vl = $(this).val();
+                var index = $.inArray(vl, tblevt.aSelected);
+                if (index == -1)
+                {
+                    tblevt.aSelected.push(vl);
+                }
+            });
+        }
+        else
+        {
+            $("#optable1 tbody tr").each(function ()
+            {
+                $(this).removeClass("row_selected");
+            });
+            $("#optable1 tbody input[type=checkbox]").each(function ()
+            {
+                var vl = $(this).val();
+                var index = $.inArray(vl, tblevt.aSelected);
+                if (index > -1)
+                {
+                    tblevt.aSelected.splice(index, 1);
+                }
+            });
+        }
+    }
+};
+    var btnEvt =
+{
+    gotoStatus: function (type)
+    {
+        var s = tblevt.aSelected.join(",");
+        $.ajax({
+            url: "/prize/resetstatus/", data: { ids: s, type: type }, type: "post", dataType: "json", success: function (r)
+            {
+                sysevt.showtip(r.Msg);
+                if (r.Success)
+                {
+                    tblevt.initTableOp();
+                }
+            },
+            error: function (ex)
+            {
+                sysevt.showtip("操作失败！" + ex.statusText);
+            }
+        });
+    },
+    gotoReset: function ()
+    {
+        
+    }
+};
+   
+    $(function ()
+    {
+        tblevt.initTableOp();
+        tblevt.initevt();
+    });
+</script>
+<script src="/Resources/template/js/matrix.tables.js" type="text/javascript"></script> 
+<div id="content">
+<!--breadcrumbs-->
+  <div id="content-header">
+        <div id="breadcrumb"> <a href="/" title="返回首页" class="tip-bottom"><i class="icon-home"></i> 首页</a> <a href="javascript:;"  class="tip-bottom"> 红包管理</a></div>
+        <div class="page_title_area">
+            <div class="page_title">红包管理</div>
+                  
+        </div>
+    </div>
+    <div class="container-fluid clear">        
+        <div class="row-fluid">
+          <div class="span12">
+            <div class="widget-box">
+                <div class="widget-title"> <span class="icon"><i class="icon-th"></i></span>  
+                    <div class="tbl_btn">
+                    <input type="button" onclick="location.href='/prize/edit';" class="btn btn-warning btn-mini" value="创建红包" /> 
+                    <input type="button" onclick="btnEvt.gotoStatus(1);" class="btn btn-success btn-mini" value="激活活动" /> 
+                    <input type="button" onclick="btnEvt.gotoStatus(0);" class="btn btn-inverse btn-mini" value="暂停红包" />
+                     
+                     </div>
+                  </div>
+                <div class="widget-content nopadding">
+                <table class="table table-bordered data-table table-striped with-check" id="optable1">
+                  <thead>
+                    <tr>
+                      <th><input type="checkbox" id="title-table-checkbox" onclick="javascript:tblevt.selectall(this);" name="title-table-checkbox" /></th>
+                      <th>ID</th>
+                      <th>红包总数</th>
+                      <th>剩余数量</th>
+                      <th>红包金额</th>
+                      <th>创建时间</th>
+                      <th>修改时间</th>
+                      <th>中奖率</th>
+                      <th>状态</th>
+                        <th>操作</th>
+                    </tr>
+                  </thead>
+                  <tfoot>
+                    <tr>
+                        <th><input type="checkbox" id="title-table-checkbox" onclick="javascript:tblevt.selectall(this);" name="title-table-checkbox" /></th>
+                        <th>ID</th>
+                        <th>红包总数</th>
+                        <th>剩余数量</th>
+                        <th>红包金额</th>
+                        <th>创建时间</th>
+                        <th>修改时间</th>
+                        <th>中奖率</th>
+                        <th>状态</th>
+                        <th>操作</th>
+                    </tr>
+                  </tfoot>
+                </table>
+                </div>
+            </div>
+          </div>
+         
+        </div>
+    </div>
+</div>

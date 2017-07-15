@@ -1,0 +1,317 @@
+﻿@{
+    ViewBag.Title = "管理员管理";
+}
+@section top_css {
+    <link href="/Resources/plugin/zTree/css/zTreeStyle/zTreeStyle.css" rel="stylesheet" type="text/css" />
+}
+@section top_js {
+    <script src="/Resources/plugin/zTree/js/jquery.ztree.core-3.5.min.js" type="text/javascript"></script>
+    <script src="/Resources/plugin/zTree/js/jquery.ztree.excheck-3.5.min.js" type="text/javascript"></script>
+}
+<script type="text/javascript">
+    var tblevt =
+{
+    aSelected: [],
+    initTableOp: function ()
+    {
+        this.aSelected = [];
+        jQuery("#optable1").dataTable({
+            "sPaginationType": "full_numbers",
+            //"aaSortingFixed": [[0, 'asc']],
+            "bPaginate": true,
+            "bJQueryUI": true,
+            "aLengthMenu": [[20, 50, 100], [20, 50, 100]],
+            "bSort": false,
+            "bProcessing": true,
+            "bStateSave": true,
+            "iCookieDuration": 300,
+            "bServerSide": true,
+            "bDestroy": true,
+            "bSortCellsTop": true,
+            "bFilter": true,
+            //            "oSearch": { "sSearch": "" },
+            "sAjaxSource": '/operator/pagelist',
+            "aoColumns":
+               [
+                { "mDataProp": "Id", 'sClass': 'center', "mRender": function (data, type)
+                {
+                    return "<input type='checkbox' value='" + data + "' id='chk_main_'" + data + "' name='chkids' />";
+                }
+                },
+                { "mDataProp": "Id", 'sClass': 'center' },
+                { "mDataProp": "Loginname", 'sClass': 'center' },
+                { "mDataProp": "Username", 'sClass': 'center' },
+                { "mDataProp": "Lastlogintime", 'sClass': 'center', "mRender": function (data, type)
+                {
+                    return sysevt.UnixToDate(data, true);
+                }
+                },
+                { "mDataProp": "Createtime", 'sClass': 'center', "mRender": function (data, type)
+                {
+                    return sysevt.UnixToDate(data, true);
+                }
+                },
+                { "mDataProp": "IsvalidName", 'sClass': 'center' },
+                { "mDataProp": "Id", 'sClass': 'center' }
+                ],
+            "aoColumnDefs":
+            [
+                { "aTargets": [7], "mRender": function (data, type, full)
+                {
+                    return "<input type='button' class='btn btn-success btn-mini' onclick='location.href=\"/operator/edit/" + data + "\";' value='编 辑' /> <input type='button' class='btn btn-success btn-mini' onclick='roleTree.togetRole(" + data + ",\"" + full.Username + "\");' value='设置角色' />";
+                }
+                }
+            ],
+            "fnDrawCallback": function (oSettings)
+            {
+                //jQuery('input:checkbox,input:radio').uniform();
+                //jQuery.uniform.update();
+            },
+            "fnServerParams": function (aoData)
+            {
+                //aoData.push({ "name": "username", "value": jQuery("#uname").val() });
+            }
+        });
+    },
+    initevt: function ()
+    {
+        tblevt.aSelected = [];
+        $('#optable1 tbody tr').live('click', function ()
+        {
+            var chk = $(this).children().children("input[type=checkbox]").eq(0);
+            var vl = chk.val();
+            var index = $.inArray(vl, tblevt.aSelected);
+            if (index == -1)
+            {
+                chk.attr("checked", "checked");
+                tblevt.aSelected.push(vl);
+            }
+            else
+            {
+                chk.removeAttr("checked");
+                tblevt.aSelected.splice(index, 1);
+            }
+            $(this).toggleClass('row_selected');
+        });
+    },
+    selectall: function (t)
+    {
+        if ($(t).attr("checked") == "checked")
+        {
+            $("#optable1 tbody tr").each(function ()
+            {
+                $(this).addClass("row_selected");
+            });
+            $("#optable1 tbody input[type=checkbox]").each(function ()
+            {
+                var vl = $(this).val();
+                var index = $.inArray(vl, tblevt.aSelected);
+                if (index == -1)
+                {
+                    tblevt.aSelected.push(vl);
+                }
+            });
+        }
+        else
+        {
+            $("#optable1 tbody tr").each(function ()
+            {
+                $(this).removeClass("row_selected");
+            });
+            $("#optable1 tbody input[type=checkbox]").each(function ()
+            {
+                var vl = $(this).val();
+                var index = $.inArray(vl, tblevt.aSelected);
+                if (index > -1)
+                {
+                    tblevt.aSelected.splice(index, 1);
+                }
+            });
+        }
+    }
+};
+var btnEvt =
+{
+    gotoStatus: function (type)
+    {
+        var s = tblevt.aSelected.join(",");
+        $.ajax({
+            url: "/operator/resetstatus/", data: { ids: s, type: type }, type: "post", dataType: "json", success: function (r)
+            {
+                sysevt.showtip(r.Msg);
+                if (r.Success)
+                {
+                    tblevt.initTableOp();
+                }
+            },
+            error: function (ex)
+            {
+                sysevt.showtip("操作失败！" + ex.statusText);
+            }
+        });
+    },
+    gotoReset: function ()
+    {
+        var s = tblevt.aSelected.join(",");
+        $.ajax({
+            url: "/operator/resetpass/", data: { ids: s }, type: "post", dataType: "json", success: function (r)
+            {
+                sysevt.showtip(r.Msg);
+            },
+            error: function (ex)
+            {
+                sysevt.showtip("操作失败！" + ex.statusText);
+            }
+        });
+    }
+};
+var roleTree =
+{
+    setting: {
+        check: { enable: true },
+        data: {
+            simpleData: { enable: true }
+        }
+    },
+    oid: 0,
+    togetRole: function (code, uname)
+    {
+        var ev = window.event || arguments.callee.caller.arguments[0];
+        if (window.event) ev.cancelBubble = true;
+        else
+        {
+            ev.stopPropagation();
+        }
+        sysevt.showloading("#x_load");
+        $("#x_select_name").text(uname);
+        this.getRoleTree(code);
+    },
+    getRoleTree: function (code)
+    {
+        this.oid = code;
+        $.ajax({
+            url: "/operator/roletree/" + code, dataType: "json", type: "post",
+            success: function (result)
+            {
+                if (result.Success)
+                {
+                    $.fn.zTree.init($("#treeDemo"), roleTree.setting, result.Source);
+                    //$("#showrole").show();
+                }
+                else
+                {
+                    sysevt.showtip(result.Msg);
+                }
+            },
+            error: function (ex)
+            {
+                sysevt.showtip("权限获取失败！" + ex.statusText);
+            },
+            complete: function ()
+            {
+                sysevt.closeloading("#x_load");
+            }
+        });
+    },
+    saveRoles: function ()
+    {
+        if (this.oid > 0)
+        {
+            var treeObj = jQuery.fn.zTree.getZTreeObj("treeDemo");
+            var nodes = treeObj.getCheckedNodes(true);
+            var nodeStr = "";
+            for (var i = 0; i < nodes.length; i++)
+            {
+                nodeStr += nodes[i].id + ",";
+            }
+            jQuery.ajax({
+                url: "/operator/saverole/" + this.oid, data: { nodes: nodeStr }, type: "post", dataType: "json",
+                success: function (result)
+                {
+                    sysevt.showtip(result.Msg);
+                }, error: function (ex)
+                {
+                    sysevt.showtip("保存失败！" + ex.statusText);
+                }
+            });
+        }
+    }
+};
+$(function ()
+{
+    tblevt.initTableOp();
+    tblevt.initevt();
+    roleTree.getRoleTree(0);
+});
+</script>
+<script src="/Resources/template/js/matrix.tables.js" type="text/javascript"></script> 
+<div id="content">
+<!--breadcrumbs-->
+  <div id="content-header">
+        <div id="breadcrumb"> <a href="/" title="返回首页" class="tip-bottom"><i class="icon-home"></i> 首页</a> <a href="javascript:;"  class="tip-bottom"> 管理员管理</a></div>
+        <div class="page_title_area">
+            <div class="page_title">管理员管理</div>
+            @Html.Partial("_SubMenu")           
+        </div>
+    </div>
+    <div class="container-fluid clear">        
+        <div class="row-fluid">
+          <div class="span9">
+            <div class="widget-box">
+                <div class="widget-title"> <span class="icon"><i class="icon-th"></i></span>  
+                    <div class="tbl_btn">
+                    <input type="button" onclick="location.href='/operator/edit';" class="btn btn-warning btn-mini" value="创建帐号" /> 
+                    <input type="button" onclick="btnEvt.gotoStatus(1);" class="btn btn-success btn-mini" value="激活帐号" /> 
+                    <input type="button" onclick="btnEvt.gotoStatus(0);" class="btn btn-inverse btn-mini" value="封禁帐号" />
+                     <input type="button" onclick="btnEvt.gotoReset();"  class="btn btn-danger btn-mini" value="重置密码" />
+                     </div>
+                  </div>
+                <div class="widget-content nopadding">
+                <table class="table table-bordered data-table table-striped with-check" id="optable1">
+                  <thead>
+                    <tr>
+                      <th><input type="checkbox" id="title-table-checkbox" onclick="javascript:tblevt.selectall(this);" name="title-table-checkbox" /></th>
+                      <th>ID</th>
+                      <th>帐号</th>
+                      <th>姓名</th>
+                      <th>最后登录时间</th>
+                      <th>创建时间</th>
+                      <th>状态</th>
+                      <th>角色</th>
+                    </tr>
+                  </thead>
+                  <tfoot>
+                    <tr>
+                      <th></th>
+                      <th>ID</th>
+                      <th>帐号</th>
+                      <th>姓名</th>
+                      <th>最后登录时间</th>
+                      <th>创建时间</th>
+                      <th>状态</th>
+                      <th>角色</th>
+                    </tr>
+                  </tfoot>
+                </table>
+                </div>
+            </div>
+          </div>
+          <div class="span3">
+            <div class="widget-box">
+                <div class="widget-title"> <span class="icon"><i class="icon-th"></i> 权限菜单</span>  
+                    <div class="tbl_btn">
+                      &nbsp;<input type="button" onclick="roleTree.saveRoles();" class="btn btn-success btn-mini" value="保存勾选角色" /> 
+                    </div>
+                  </div>
+                <div class="widget-content nopadding">
+                 <div style="height:10px;">
+                    <div id="x_load" class="hide"></div>
+                    </div>
+                    <div id="x_select_name" style="margin:0 0 0 20px;">请点击“设置角色”</div>
+                    <ul id="treeDemo" class="ztree"></ul>                    
+                </div>
+            </div>
+          </div>
+        </div>
+    </div>
+</div>

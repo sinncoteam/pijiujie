@@ -1,0 +1,106 @@
+﻿@{
+    ViewBag.Title = "角色编辑";
+}
+@model FH.Cms.Models.OperatorRoleEditDto
+<script type="text/javascript">
+    $(function ()
+    {
+        $("#form1").validate({
+            rules: {
+                rolename: {
+                    required: true
+                },
+                rolecode: {
+                    required: true
+                }
+            },
+            messages: {
+                rolename: "请输入角色名称",
+                rolecode: "请输入角色代码"
+            },
+            errorClass: "help-inline",
+            errorElement: "span",
+            highlight: function (element, errorClass, validClass)
+            {
+                $(element).parents('.control-group').removeClass('success').addClass('error');
+            },
+            unhighlight: function (element, errorClass, validClass)
+            {
+                $(element).parents('.control-group').removeClass('error').addClass('success');
+            },
+            submitHandler: function (form)
+            {
+                jQuery.ajax({
+                    data: $(form).serialize(), type: "post", dataType: "json", url: "/operator/roleeditsave",
+                    success: function (r)
+                    {
+                        if (r.Success)
+                        {
+                            sysevt.showtip("保存成功", "", function ()
+                            {
+                                location.href = '/operator/role';
+                            });
+                        }
+                        else
+                        {
+                            sysevt.showtip(r.Msg);
+                        }
+                    },
+                    error: function (ex)
+                    {
+                        sysevt.showtip("更新失败！" + ex.statusText);
+                    }
+                });
+                return false;
+            }
+        });
+    });
+</script>
+<div id="content">
+<div id="content-header">
+        <div id="breadcrumb"> <a href="/" title="返回首页" class="tip-bottom"><i class="icon-home"></i> 首页</a> <a href="javascript:;"  class="tip-bottom"> 角色编辑</a></div>
+        <div class="page_title_area">
+            <div class="page_title">角色编辑</div>
+            @Html.Partial("_SubMenu") 
+        </div>
+    </div>
+    <div class="container-fluid">        
+        <div class="row-fluid">
+          <div class="span12">
+            <div class="widget-box">
+                <div class="widget-title"> <span class="icon"><i class="icon-th"></i></span>  
+                    <div class="tbl_btn">
+                    创建/编辑角色信息
+                     </div>
+                  </div>
+                <div class="widget-content nopadding">
+                    <form class="form-horizontal" method="post" action="#" name="form1" id="form1" novalidate="novalidate">
+                        <input type="hidden" value="@Model.RlInfo.Id" name="id" />
+                      <div class="control-group">
+                        <label class="control-label"><span class="required_form">*</span> 角色名称</label>
+                        <div class="controls">
+                          <input type="text" class="span6" name="rolename" id="rolename" value="@Model.RlInfo.Rolename" />
+                        </div>
+                      </div>
+                      <div class="control-group">
+                        <label class="control-label"><span class="required_form">*</span> 角色代码</label>
+                        <div class="controls">
+                          <input type="text" class="span6" name="rolecode" id="rolecode" value="@Model.RlInfo.Rolecode" />
+                        </div>
+                      </div>
+                      <div class="control-group">
+                        <label class="control-label"><span class="required_form">*</span> 备 注</label>
+                        <div class="controls">
+                          <input type="text" class="span6" name="summary" id="summary" value="@Model.RlInfo.Summary" />
+                        </div>
+                      </div>
+                      <div class="form-actions">
+                        <input type="submit" value="确 定" class="btn btn-success">
+                      </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        </div>
+    </div>
+</div>

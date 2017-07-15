@@ -1,0 +1,128 @@
+﻿@{
+    ViewBag.Title = "红包编辑";
+}
+@model JFB.Cms.Models.RedPackEditDto
+<script type="text/javascript">
+    $(function ()
+    {
+        $("#form1").validate({
+            rules: {
+                rbname:{ required: true},
+                rbtotal: {
+                    required: true
+                },
+                rbcount: {
+                    required: true
+                },
+                rbmoney: {
+                    required: true
+                },
+                getpercent: {
+                    required: true
+                }
+            },
+            messages: {
+                rbname:"请输入红包名称",
+                rbtotal: "请输入红包总数",
+                rbcount: "请输入剩余数量",
+                rbmoney: "请输入红包金额",
+                getpercent: "请输入中奖几率"
+            },
+            errorClass: "help-inline",
+            errorElement: "span",
+            highlight: function (element, errorClass, validClass)
+            {
+                $(element).parents('.control-group').removeClass('success').addClass('error');
+            },
+            unhighlight: function (element, errorClass, validClass)
+            {
+                $(element).parents('.control-group').removeClass('error').addClass('success');
+            },
+            submitHandler: function (form)
+            {
+                jQuery.ajax({
+                    data: $(form).serialize(), type: "post", dataType: "json", url: "/prize/editsave",
+                    success: function (r)
+                    {
+                        if (r.Success)
+                        {
+                            sysevt.showtip("保存成功", "", function ()
+                            {
+                                location.href = '/prize/';
+                            });
+                        }
+                        else
+                        {
+                            sysevt.showtip(r.Msg);
+                        }
+                    },
+                    error: function (ex)
+                    {
+                        sysevt.showtip("更新失败！" + ex.statusText);
+                    }
+                });
+                return false;
+            }
+        });
+    });
+</script>
+<div id="content">
+    <div id="content-header">
+        <div id="breadcrumb"> <a href="/" title="返回首页" class="tip-bottom"><i class="icon-home"></i> 首页</a> <a href="javascript:;" class="tip-bottom"> 红包编辑</a></div>
+        <div class="page_title_area">
+            <div class="page_title">红包编辑</div>
+        </div>
+    </div>
+    <div class="container-fluid">
+        <div class="row-fluid">
+            <div class="span12">
+                <div class="widget-box">
+                    <div class="widget-title">
+                        <span class="icon"><i class="icon-th"></i></span>
+                        <div class="tbl_btn">
+                            创建/编辑红包信息
+                        </div>
+                    </div>
+                    <div class="widget-content nopadding">
+                        <form class="form-horizontal" method="post" action="#" name="form1" id="form1" novalidate="novalidate">
+                            <input type="hidden" value="@Model.RPInfo.ID" name="id" />
+                            <div class="control-group">
+                                <label class="control-label"><span class="required_form">*</span> 红包名称</label>
+                                <div class="controls">
+                                    <input type="text" class="span6" name="rbname" id="rbname" value="@Model.RPInfo.RbName" /> 
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label"><span class="required_form">*</span> 红包总量</label>
+                                <div class="controls">
+                                    <input type="text" class="span6" name="rbtotal" id="rbtotal" value="@Model.RPInfo.RbTotal" /> 总量
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label"><span class="required_form">*</span> 剩余数量</label>
+                                <div class="controls">
+                                    <input type="text" class="span6" name="rbcount" id="rbcount" value="@Model.RPInfo.RbCount" /> 抽红包时以剩余数量为计算依据
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label"><span class="required_form">*</span> 红包金额</label>
+                                <div class="controls">
+                                    <input type="text" class="span6" name="rbmoney" id="rbmoney" value="@Model.RPInfo.RbMoney" /> 单位：（分）
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label"><span class="required_form">*</span> 中奖几率</label>
+                                <div class="controls">
+                                    <input type="text" class="span6" name="getpercent" id="getpercent" value="@Model.RPInfo.GetPercent" /> %
+                                </div>
+                            </div>
+                            <div class="form-actions">
+                                <input type="submit" value="确 定" class="btn btn-success">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

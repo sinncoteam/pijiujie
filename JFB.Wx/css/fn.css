@@ -1,0 +1,115 @@
+﻿html, body { height: 100%; position: relative; overflow: hidden; background: #fff; }
+.layer { position: absolute; width: 100%; height: 100%; z-index: 9; }
+.mid { width: 100%; top: 50%; left: 0; position: absolute; transform: translate(0, -50%); -webkit-transform: translate(0, -50%); -moz-transform: translate(0, -50%); }
+.layer .close { position: absolute; width: 0.82rem; height: 0.82rem; right: 0.2rem; top: 0.2rem; background: url(../images/close.png) center center no-repeat; background-size: 0.82rem 0.82rem; }
+.absimg { position: absolute; }
+@-webkit-keyframes start {
+	0%, 30% { opacity: 1; -webkit-transform: translate(0, -5px) }
+	60% { opacity: 0; -webkit-transform: translate(0, 5px) }
+	100% { opacity: 1; -webkit-transform: translate(0, -5px) }
+}
+@-moz-keyframes start {
+	0%, 30% { opacity: 1; -moz-transform: translate(0, -5px) }
+	60% { opacity: 0; -moz-transform: translate(0, 5px) }
+	100% { opacity: 1; -moz-transform: translate(0, -5px) }
+}
+@keyframes start {
+	0%, 30% { opacity: 1; transform: translate(0, -5px) }
+	60% { opacity: 0; transform: translate(0, 5px) }
+	100% { opacity: 1; transform: translate(0, -5px) }
+}
+.page { position: absolute; width: 100%; height: 100%; overflow: hidden; background: #000; transform-style: preserve-3d; perspective: 800px; -webkit-transform-style: preserve-3d; -webkit-perspective: 800px; transform: scale(1); -moz-transform: scale(1); -webkit-transform: scale(1); display: none; overflow: hidden; }
+.page { background: #fff; }
+.page0 { z-index: 1000001; }
+.page0 .nums { position: absolute; width: 100%; height: 2.5rem; top: 50%; margin-top: -1.25rem; text-align: center; }
+.page0 .nums em { display: inline-block; vertical-align: top; width: 1.7rem; height: 100%; background-image: url(../images/nums.png); background-size: 1.7rem auto; background-repeat: no-repeat; }
+.page0 .nums .numss { background-position: 0 -25rem; }
+.page0 .nums .nums0 { background-position: 0 0; }
+.page0 .nums .nums1 { background-position: 0 -2.5rem; }
+.page0 .nums .nums2 { background-position: 0 -5rem; }
+.page0 .nums .nums3 { background-position: 0 -7.5rem; }
+.page0 .nums .nums4 { background-position: 0 -10rem; }
+.page0 .nums .nums5 { background-position: 0 -12.5rem; }
+.page0 .nums .nums6 { background-position: 0 -15rem; }
+.page0 .nums .nums7 { background-position: 0 -17.5rem; }
+.page0 .nums .nums8 { background-position: 0 -20rem; }
+.page0 .nums .nums9 { background-position: 0 -22.5rem; }
+.page1 { background: #b3e7ff url(../images/page2-01.png) 0 bottom no-repeat; background-size: 100% auto; }
+.big-idx { position: absolute; width: 100%; top: 0; bottom: 3.3rem; }
+.big-idx { background: url(../images/big-idx.png) center center no-repeat; background-size: contain; }
+.address { position: absolute; width: 100%; height: 0.33rem; bottom: 3.07rem; left: 0; }
+.btn-start { position: absolute; width: 4.42rem; height: 1.52rem; background: url(../images/btn-start.png) 0 0 no-repeat; background-size: cover; bottom: 1.36rem; left: 50%; margin-left: -2.21rem; }
+.btn-start.on { background-image: url(../images/btn-starts.png); }
+.my-goods { position: absolute; width: 2.15rem; height: 0.68rem; background: url(../images/page1-02.png) 0 0 no-repeat; background-size: cover; bottom: 0.42rem; right: 2.8rem; }
+.my-goods.on { background-image: url(../images/page1-02s.png); }
+.my-goods i { position: absolute; width: 0.4rem; height: 0.4rem; line-height: 0.4rem; border: 2px solid #fff; background: #fa616e; color: #fff; font-size: 0.3rem; text-align: center; border-radius: 0.4rem; right: -0.22rem; top: -0.22rem; }
+.my-saying { position: absolute; width: 2.15rem; height: 0.68rem; background: url(../images/page1-03.png) 0 0 no-repeat; background-size: cover; bottom: 0.42rem; right: 0.4rem; }
+.my-saying.on { background-image: url(../images/page1-03s.png); }
+.saying-main { background: rgba(0, 0, 0, .9); height: 100%; width: 100%; overflow: auto; position: absolute; left: 0; top: 0; }
+.saying-main h3 { line-height: 1.3rem; font-size: 0.4rem; text-align: center; color: #fff; font-weight: normal; text-align: center; color: #fff; }
+.saying-main h4 { font-weight: normal; color: #fff; font-size: 0.3rem; padding: 0 0.4rem 0.3rem; }
+.saying-main h4 em { color: #faffab; }
+.saying-tt { padding: 0 0.4rem; color: #fff; font-size: 0.3rem; line-height: 0.5rem; }
+.saying-tt p { overflow: hidden; }
+.saying-tt p strong { float: left; }
+.saying-tt p span { display: block; overflow: hidden; padding-left: 0.05rem; }
+.saying-main .code { padding-top: 0.3rem; width: 2.15rem; font-size: 0.24rem; text-align: center; color: #fff; margin: 0 auto; }
+.saying-main .code img { width: 2.15rem; margin: 0 auto; margin-bottom: 0.04rem; }
+.saying-main .code span { padding-top: 0.2rem; display: block; }
+.goods-main { background: rgba(0, 0, 0, .9); height: 100%; width: 100%; overflow: auto; position: absolute; left: 0; top: 0; }
+.goods-main h3 { line-height: 1.3rem; font-size: 0.4rem; text-align: center; color: #fff; font-weight: normal; text-align: center; color: #fff; }
+.goods-main h4 { font-weight: normal; color: #fff; font-size: 0.3rem; padding: 0 0.4rem 0.3rem; }
+.goods-main h4 em { color: #faffab; }
+.rank-tb { padding: 0 0.4rem; }
+.rank-tb>div { width: 100%; display: table; text-align: center; }
+.rank-tb .thead .td { border-bottom: 1px solid #fff; line-height: 0.8rem; height: 0.8rem; padding: 0; }
+.rank-tb .tr { display: table-row; vertical-align: middle; width: 100%; }
+.rank-tb .td { display: table-cell; vertical-align: middle; font-size: 0.3rem; color: #fff; width: 25%; line-height: 0.4rem; height: 0.4rem; text-align: center; padding: 0.15rem 0; height: 1rem; }
+.rank-tb .td img { height: 1rem; margin: 0 auto; vertical-align: top; border-radius: 1rem; width: 1rem; }
+.rank-tb .td:nth-child(1) { text-align: left; width: 20%; }
+.rank-tb .td:nth-child(2) { }
+.rank-tb .td:nth-child(3) { width: 30%; }
+.rank-tb .td:nth-child(4) { }
+.rank-tb-bt { position: absolute; top: 2.84rem; left: 0; bottom: 0.4rem; padding: 0 0.4rem; box-sizing: border-box; overflow: auto; -webkit-overflow-scrolling: touch; width: 100%; }
+.reg-main { background: rgba(0, 0, 0, .9); height: 100%; width: 100%; overflow: auto; position: absolute; left: 0; top: 0; font-size: 0.3rem; color: #fff; }
+.reg-main>strong { text-align: center; line-height: 0.7rem; padding-top: 0.4rem; display: block; font-weight: normal; }
+.reg-from { padding: 0 0.75rem; }
+.reg-from div { height: 1.2rem; padding: 0 0.3rem; background: #fff; position: relative; margin-bottom: 0.3rem; }
+.reg-from strong { font-size: 0.5rem; color: #ff1414; position: absolute; left: -0.4rem; top: 0; line-height: 1.2rem; }
+.reg-from input { height: 1.2rem; display: block; vertical-align: top; width: 100%; border: none; font-size: 0.34rem; color: #251717; }
+.bottom-btn { position: absolute; width: 4.44rem; height: 1.52rem; left: 50%; margin-left: -2.22rem; bottom: 1.4rem; }
+.bottom-btn a.btn-next { background: url(../images/btn-next.png) 0 0 no-repeat; background-size: cover; display: block; width: 100%; height: 100%; }
+.bottom-btn a.btn-next.on { background-image: url(../images/btn-nexts.png); }
+.bottom-btn a.btn-go { background: url(../images/btn-go.png) 0 0 no-repeat; background-size: cover; display: block; width: 100%; height: 100%; }
+.bottom-btn a.btn-go.on { background-image: url(../images/btn-gos.png); }
+.upload-main { background: rgba(0, 0, 0, .9); height: 100%; width: 100%; overflow: auto; position: absolute; left: 0; top: 0; font-size: 0.3rem; color: #fff; box-sizing: border-box; }
+.upload-main .mid { padding: 0 0.4rem; box-sizing: border-box; }
+.upload-main-top { position: absolute; top: 0; bottom: 2.2rem; width: 100%; left: 0; }
+.upload-main .mid>em { color: #faffab; display: block; line-height: 0.5rem; }
+.upload-main .mid>span { color: #fff; display: block; line-height: 0.5rem; }
+.upload-file { text-align: center; }
+.upload-file>div { width: 3rem; height: 3rem; display: inline-block; vertical-align: top; position: relative; margin: 0.08rem; border: 1px solid #a8aba3; overflow: hidden; }
+.upload-file>div input { position: absolute; z-index: 1; width: 100%; height: 100%; left: 0; top: 0; opacity: 0; }
+.upload-file span { position: relative; width: 100%; height: 100%; display: block; overflow: hidden; }
+.upload1 { background: #fff url(../images/photo1.png) center center no-repeat; background-size: 2rem 2rem; }
+.upload2 { background: #fff url(../images/photo2.png) center center no-repeat; background-size: 2rem 2rem; }
+.page2, .page3 { background: #b3e7ff url(../images/page2-01.png) 0 bottom no-repeat; background-size: 100% auto; }
+.result-mid { position: absolute; width: 100%; top: 0; bottom: 3.2rem; }
+.result { position: absolute; width: 6.7rem; height: 7.9rem; left: 50%; margin-left: -3.35rem; background: url(../images/result.png) 0 0 no-repeat; background-size: cover; top: 50%; transform: translate(0, -50%); -webkit-transform: translate(0, -50%); -moz-transform: translate(0, -50%); }
+.result-img { position: relative; text-align: center; padding-top: 1.44rem; font-size: 0; }
+.result-img img { display: inline-block; vertical-align: top; width: 3rem; height: 3rem; margin: 0 0.1rem; }
+.text { position: relative; width: 6rem; margin: 0 auto; height: 2.9rem; margin-top: 0.3rem; }
+.text-tb { display: table; width: 6rem; height: 2.9rem; vertical-align: middle; text-align: center; }
+.text .text-td { display: table-cell; vertical-align: middle; width: 100%; font-size: 0.34rem; color: #fff; text-align: center; line-height: 0.6rem; }
+.say-to { position: absolute; width: 100%; left: 0; bottom: 3rem; }
+.two-btn { text-align: center; position: absolute; bottom: 1.51rem; text-align: center; width: 100%; left: 0; overflow: hidden; font-size: 0; line-height: 0; }
+.two-btn a { display: inline-block; vertical-align: top; width: 3.16rem; height: 1.22rem; margin: 0 0.14rem; font-size: 0; line-height: 0; }
+.btn-see { background: url(../images/btn-see.png) 0 0 no-repeat; background-size: cover; }
+.btn-see.on { background-image: url(../images/btn-sees.png); }
+.btn-again { background: url(../images/btn-again.png) 0 0 no-repeat; background-size: cover; }
+.btn-again.on { background-image: url(../images/btn-agains.png); }
+.btn-meto { background: url(../images/btn-meto.png) 0 0 no-repeat; background-size: cover; }
+.btn-meto.on { background-image: url(../images/btn-metos.png); }
+.less .result-mid { bottom: 4%; margin-bottom: 1.5rem; }
+.less .say-to { bottom: 5%; margin-bottom: 1.3rem; }
+.less .two-btn { bottom: 4%; }

@@ -1,0 +1,347 @@
+﻿@{
+    ViewBag.Title = "仓库管理";
+}
+<script src="/Resources/js/JCanvas.js" type="text/javascript"></script>
+<script type="text/javascript">
+    var rackevt =
+{
+    jcavs: {},
+    cavs: {},
+    context: {},
+    data: {
+        linepoints: [{ X: 100, Y: 100 }, { X: 200, Y: 100 }, { X: 300, Y: 100 }, { X: 300, Y: 300 }, { X: 300, Y: 400 }, { X: 400, Y: 400 }, { X: 400, Y: 500 }, { X: 500, Y: 500}]
+    },
+    layerindex: 0,
+    curlayer: {},
+    init: function (cavid)
+    {
+        this.cavs = document.getElementById(cavid);
+        var jcav = $(this.cavs);
+        var pwidth = jcav.parent().width();
+        this.jcavs = jcav;
+        this.cavs.width = pwidth;
+        this.cavs.height = 1000;
+        this.context = this.cavs.getContext("2d");
+    },
+    showrackinput: function (v)
+    {
+        if ("undefined" != typeof (v))
+        {
+            $("#x_cav_name").val(v);
+        }
+        $("#x_cav_tip").modal().off("hidden");
+    },
+    showinputcall: function () { },
+    showdel: function ()
+    {
+        var layername = this.curlayer.name;
+        this.jcavs.removeLayer(layername);
+        this.jcavs.removeLayer(layername + "word");
+    },
+    iscandrawline: function ()
+    {
+        this.jcavs.setLayers({ draggable: false });
+        var csrect = this.cavs.getBoundingClientRect();
+        var x = 0; var y = 0;
+        var layername = "";
+        var jcav = this.jcavs;
+        this.cavs.onmousedown = function (ev)
+        {
+            rackevt.layerindex++;
+            var ev = ev || window.event;
+            layername = "layerline" + rackevt.layerindex;
+            x = ev.clientX - csrect.left;
+            y = ev.clientY - csrect.top;
+            var lastx = x;
+            var lasty = y;
+            jcav.drawLine({
+                strokeStyle: '#ff3300',
+                strokeWidth: 1,
+                x1: x, y1: y, x2: x, y2: y,
+                layer: true,
+                name: layername
+            });
+            rackevt.cavs.onmousemove = function (ev)
+            {
+                var ev = ev || window.event; //获取event对象
+                var width = ev.clientX - csrect.left;
+                var height = ev.clientY - csrect.top;
+                jcav.removeLayer(layername);
+                jcav.drawLine({
+                    strokeStyle: '#ff3300',
+                    strokeWidth: 1,
+                    x1: x, y1: y, x2: width, y2: height,
+                    layer: true,
+                    name: layername
+                }).drawLayers();
+            };
+        };
+
+        this.cavs.onmouseup = function (ev)
+        {
+            rackevt.cavs.onmousemove = null;
+            var x2 = ev.clientX - csrect.left;
+            var y2 = ev.clientY - csrect.top;
+            var tmpx = Math.abs(x2 - x);
+            var tmpy = Math.abs(y2 - y);
+            if (tmpx > tmpy)
+            {
+                y2 = y;
+            }
+            else
+            {
+                x2 = x;
+            }
+            jcav.removeLayer(layername);
+            jcav.drawLine({
+                strokeStyle: '#ff3300',
+                strokeWidth: 1,
+                x1: x, y1: y, x2: x2, y2: y2,
+                layer: true,
+                name: layername
+            }).drawLayers();
+        };
+    },
+    iscandrawrect: function ()
+    {
+        this.jcavs.setLayers({ draggable: false });
+        var csrect = this.cavs.getBoundingClientRect();
+        var x = 0; var y = 0;
+        var layername = "";
+        var jcav = this.jcavs;
+        this.cavs.onmousedown = function (ev)
+        {
+            rackevt.layerindex++;
+            var ev = ev || window.event;
+            layername = "layer" + rackevt.layerindex;
+
+            x = ev.clientX - csrect.left;
+            y = ev.clientY - csrect.top;
+            jcav.addLayer({
+                type: 'rectangle',
+                name: layername,
+                fromCenter: false,
+                x: x, y: y,
+                width: 1,
+                height: 1
+            });
+            jcav.drawLayers();
+            jcav.saveCanvas();
+            rackevt.cavs.onmousemove = function (ev)
+            {
+                var ev = ev || window.event; //获取event对象
+                var width = ev.clientX - csrect.left - x;
+                var height = ev.clientY - csrect.top - y;
+                jcav.removeLayer(layername);
+                jcav.addLayer({
+                    type: 'rectangle',
+                    strokeStyle: "#333",
+                    strokeWidth: 1,
+                    name: layername,
+                    fromCenter: false,
+                    x: x, y: y,
+                    width: width,
+                    height: height
+                }).drawLayers();
+            };
+        };
+
+        this.cavs.onmouseup = function (ev)
+        {
+            rackevt.cavs.onmousemove = null;
+            var width = ev.clientX - csrect.left - x;
+            var height = ev.clientY - csrect.top - y;
+            jcav.removeLayer(layername);
+            jcav.addLayer({
+                type: 'rectangle',
+                strokeStyle: "#333",
+                fillStyle: "lightgreen",
+                strokeWidth: 2,
+                name: layername,
+                fromCenter: false,
+                x: x, y: y,
+                width: width,
+                height: height,
+                text: "新建货架区",
+                dblclick: function (layer)
+                {
+                    rackevt.curlayer = layer;
+                    var tobj = rackevt.showrackinput(layer.text);
+                    rackevt.showinputcall = function ()
+                    {
+                        var layertname = layer.name + "word";
+                        var val = $("#x_cav_name").val();
+                        var tx = layer.x + layer.width / 2;
+                        var ty = layer.y + layer.height / 2;
+                        if (rackevt.jcavs.getLayer(layertname))
+                        {
+                            rackevt.jcavs.removeLayer(layertname).drawLayer();
+                        }
+                        rackevt.jcavs.drawText({
+                            layer: true,
+                            name: layertname,
+                            strokeStyle: '#ff3300',
+                            draggable: true,
+                            bringToFront: true,
+                            strokeWidth: 1,
+                            x: tx, y: ty,
+                            fontSize: 14,
+                            text: val
+                        });
+                    };
+                }
+            });
+            jcav.drawLayers();
+            jcav.saveCanvas();
+        };
+    },
+    isstopdraw: function ()
+    {
+        this.cavs.onmousedown = null;
+        this.cavs.onmouseup = null;
+        this.cavs.onmousemove = null;
+        this.jcavs.setLayers({ draggable: true });
+    },
+    drawline: function (points) //points is an object list
+    {
+        this.jcavs.addLayer({
+            type: 'function',
+            fn: function (ctx)
+            {
+                ctx.lineWidth = 2;
+                ctx.beginPath();
+                for (var i = 0; i < points.length; i++)
+                {
+                    var sub = points[i];
+                    ctx.lineTo(sub.X, sub.Y);
+                }
+                ctx.strokeStyle = "#ff3300";
+                ctx.stroke();
+            }
+        }).drawLayers();
+    },
+    drawrect: function (x, y, width, height, borderWidth, borderColor, fillColor)
+    {
+        this.jcavs.drawRect({
+            layer: true,
+            name: 'box',
+            strokeStyle: borderColor,
+            fillStyle: fillColor,
+            x: x, y: y,
+            width: width, height: height,
+            draggable: true,
+            bringToFront: true,
+            dblclick: function (layer)
+            {
+                sysevt.showtip("click event");
+            }
+        });
+        this.jcavs.addLayer({
+            type: 'function',
+            fn: function (ctx)
+            {
+                rackevt.jcavs.drawText({
+                    fillStyle: '#fff',
+                    strokeStyle: '#ff3300',
+                    strokeWidth: 1,
+                    x: 150, y: 120,
+                    fontSize: 14,
+                    fontFamily: 'Verdana, sans-serif',
+                    text: '仓位区WSA0102'
+                });
+            }
+        }).drawLayers();
+    },
+    drawarc: function (x, y, r, borderWidth, borderColor, fillColor)
+    {
+        this.context.lineWidth = borderWidth;
+        this.context.strokeStyle = borderColor;
+        this.context.fillStyle = fillColor;
+        this.context.beginPath();
+        this.context.arc(x, y, r, 0, Math.PI * 2);
+        this.context.fill();
+        this.context.stroke();
+    },
+    backto: function ()
+    {
+        var layer = this.jcavs.getLayer(-1);
+        if ("undefined" != typeof (layer))
+        {
+            this.jcavs.removeLayer(layer.name).drawLayers();
+        }
+    },
+    reset: function ()
+    {
+        this.jcavs.removeLayers();
+    },
+    render: function ()
+    {
+        this.drawline(this.data.linepoints);
+        this.drawarc(200, 100, 10, 1, "blue", "#333");
+        this.drawrect(200, 90, 40, 20, 1, "#ff3300", "blue");
+        //        $.ajax({ url: "/rack/mapdata", type: "post", dataType: "json", success: function (r)
+        //        {
+        //            if (r.Success)
+        //            {
+        //                rackevt.data = r.Source;
+        //                rackevt.drawline(r.Source.Points);
+        //                rackevt.drawarc(200, 100, 10, 1, "blue", "#333");
+        //                rackevt.drawrect(200, 90, 40, 20, 1, "#ff3300", "#ddd");
+        //            }
+        //        },
+        //            error: function (ex)
+        //            {
+        //                sysevt.showtip("数据加载出错！" + ex.statusText);
+        //            }
+        //        });
+    }
+};
+$(function ()
+{
+    rackevt.init("cav_show");
+    //rackevt.render();
+});
+</script>
+<div id="content">
+  <div id="content-header">
+        <div id="breadcrumb"> <a href="/" title="返回首页" class="tip-bottom"><i class="icon-home"></i> 首页</a> <a href="javascript:;"  class="tip-bottom"> 仓库平面图</a></div>
+        <div class="page_title_area">
+            <div class="page_title">仓库平面图</div>                   
+        </div>
+    </div>
+     <div class="container-fluid clear">        
+        <div class="row-fluid">
+             <div class="span12">
+                <div class="widget-box">
+                    <div class="widget-title"> <span class="icon"><i class="icon-th"></i></span>  
+                        <div class="tbl_btn">
+                            <input type="button" onclick="javascript:;" class="btn btn-warning btn-mini" value="保存图片" /> 
+                            <input type="button" onclick="javascript:rackevt.iscandrawrect();" class="btn btn-success btn-mini" value="矩形绘图" /> 
+                            <input type="button" onclick="javascript:rackevt.iscandrawline();" class="btn btn-success btn-mini" value="直线绘图" /> 
+                            <input type="button" onclick="javascript:rackevt.isstopdraw();" class="btn btn-inverse btn-mini" value="停止绘图" />
+                            <input type="button" onclick="javascript:rackevt.backto();"  class="btn btn-danger btn-mini" value="撤 销" />
+                            <input type="button" onclick="javascript:rackevt.reset();"  class="btn btn-danger btn-mini" value="重置绘图" />
+                         </div>
+                      </div>
+                    </div>
+            </div>
+            <div onselectstart="return false;" style="-moz-user-select: none;">
+            <canvas id="cav_show">
+                当前浏览器不支持canvas，请使用更高版本的浏览器或Chrome浏览器！
+            </canvas>
+            </div>
+    </div>
+    </div>
+</div>
+<div class="modal hide" id="x_cav_tip">              
+    <div class="modal-header">                
+    <button data-dismiss="modal"  class="close" type="button">×</button>                
+    <h3 id="x_cav_title">编 辑</h3>              
+    </div>              
+    <div class="modal-body">                
+        <p id="x_cav_content"> 名 称：<input type="text"  id="x_cav_name"/> 
+            <input type="button" onclick="javascript:rackevt.showinputcall();" class="btn btn-success btn-mini" value="确 定" data-dismiss="modal"/>   
+            <input type="button" class="btn btn-danger btn-mini" value="删 除" data-dismiss="modal" onclick="javascript:rackevt.showdel();" />
+        </p>              
+    </div>            
+</div>

@@ -1,0 +1,94 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{6E286B01-0768-48A3-B057-75EFB47213BF}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>JFB.Systems.Domain</RootNamespace>
+    <AssemblyName>JFB.Systems.Domain</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="log4net">
+      <HintPath>..\..\lib\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="ViCore">
+      <HintPath>..\..\lib\ViCore.dll</HintPath>
+    </Reference>
+    <Reference Include="ViData">
+      <HintPath>..\..\lib\ViData.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Info\ModuleMenuInfo.cs" />
+    <Compile Include="Info\OperatorInfo.cs" />
+    <Compile Include="Info\OperatorOrgInfo.cs" />
+    <Compile Include="Info\OperatorRoleInfo.cs" />
+    <Compile Include="Info\OptionInfo.cs" />
+    <Compile Include="Info\OrgInfo.cs" />
+    <Compile Include="Info\RoleInfo.cs" />
+    <Compile Include="Info\RoleModuleInfo.cs" />
+    <Compile Include="Model\ModuleMenu.cs" />
+    <Compile Include="Model\ModuleMenuMap.cs" />
+    <Compile Include="Model\Operator.cs" />
+    <Compile Include="Model\OperatorMap.cs" />
+    <Compile Include="Model\OperatorOrg.cs" />
+    <Compile Include="Model\OperatorOrgMap.cs" />
+    <Compile Include="Model\OperatorRole.cs" />
+    <Compile Include="Model\OperatorRoleMap.cs" />
+    <Compile Include="Model\Option.cs" />
+    <Compile Include="Model\OptionMap.cs" />
+    <Compile Include="Model\Org.cs" />
+    <Compile Include="Model\OrgMap.cs" />
+    <Compile Include="Model\Role.cs" />
+    <Compile Include="Model\RoleMap.cs" />
+    <Compile Include="Model\RoleModule.cs" />
+    <Compile Include="Model\RoleModuleMap.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Service\ModuleMenuService.cs" />
+    <Compile Include="Service\OperatorOrgService.cs" />
+    <Compile Include="Service\OperatorRoleService.cs" />
+    <Compile Include="Service\OperatorService.cs" />
+    <Compile Include="Service\OptionService.cs" />
+    <Compile Include="Service\OrgService.cs" />
+    <Compile Include="Service\RoleModuleService.cs" />
+    <Compile Include="Service\RoleService.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
