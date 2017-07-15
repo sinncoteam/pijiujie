@@ -1,9 +1,0 @@
-D:\git\jfbroad\web\FH.Utils\bin\Debug\FH.Utils.dll
-D:\git\jfbroad\web\FH.Utils\bin\Debug\FH.Utils.pdb
-D:\git\jfbroad\web\FH.Utils\obj\Debug\ResolveAssemblyReference.cache
-D:\git\jfbroad\web\FH.Utils\obj\Debug\FH.Utils.dll
-D:\git\jfbroad\web\FH.Utils\obj\Debug\FH.Utils.pdb
-D:\git\pijiujie\web\FH.Utils\bin\Debug\FH.Utils.dll
-D:\git\pijiujie\web\FH.Utils\bin\Debug\FH.Utils.pdb
-D:\git\pijiujie\web\FH.Utils\obj\Debug\FH.Utils.dll
-D:\git\pijiujie\web\FH.Utils\obj\Debug\FH.Utils.pdb
