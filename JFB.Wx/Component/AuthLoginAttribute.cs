@@ -70,7 +70,7 @@ namespace JFB.Wx.Component
                 string host = filterContext.HttpContext.Request.Url.Host;
                 //string host = "xianyunsoft.xicp.cn";
                 string hostUrl = "http://wxin2.cqnews.net/authorize.aspx?gp=679fc6fc2cd842cba05e1f07660bc5ab&ga=0682ed39d45745ae879f43d06e267ed0&opa=";
-                 hostUrl += HttpUtility.UrlEncode( "http://"+ host +"/jfb/wx/reclogin?s="+pq);
+                 hostUrl += HttpUtility.UrlEncode( "http://"+ host +"/pjj/wx/reclogin?s="+pq);
                 
                 filterContext.Result = new RedirectResult(hostUrl);
             }

@@ -52,6 +52,7 @@
     <Compile Include="Info\RedPackCheck.cs" />
     <Compile Include="Info\RedPackListInfo.cs" />
     <Compile Include="Info\UserInfo.cs" />
+    <Compile Include="Info\UserPhotoInfo.cs" />
     <Compile Include="Model\Answer.cs" />
     <Compile Include="Model\AnswerMap.cs" />
     <Compile Include="Model\Question.cs" />

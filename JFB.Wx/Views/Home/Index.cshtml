@@ -1,4 +1,10 @@
-﻿<!-- 声音数据 -->
+﻿@{
+    if(ViewBag.islinked == 1)
+    {
+     <script type="text/javascript">         param.isReg = true;</script>   
+    }
+    }
+<!-- 声音数据 -->
 	<div id="audio_btn" class="video_exist rotate" style="display: none;">
 		<audio loop src="~/images/bgm.mp3" id="media"  preload=""></audio>
 	</div> 
@@ -21,7 +27,7 @@
 	</div>
 
 
-	<div class="page page2">
+	@*<div class="page page2">
 		<div class="result-mid">
 			<div class="result">
 				<div class="result-img">
@@ -33,7 +39,7 @@
 						<div class="text-td">
 							<p>100% 匹配度</p>
 							<p>哇塞，最强基因非你莫属！</p>
-							<p>三行的样式居中对齐</p>
+							<p></p>
 						</div>
 					</div>
 				</div>
@@ -44,22 +50,22 @@
 			<a class="btn-see" href="javascript:;"></a>
 			<a class="btn-again" href="javascript:;"></a>
 		</div>
-	</div>
+	</div>*@
 
 
-	<div class="page page3">
+	<div class="page page2">
 		<div class="result-mid">
 			<div class="result">
 				<div class="result-img">
-					<img src="~/images/code-idx.png">
-					<img src="~/images/code-idx.png">
+					<img id="x_fimg" src="~/images/code-idx.png">
+					<img id="x_cimg" src="~/images/code-idx.png">
 				</div>
 				<div class="text">
 					<div class="text-tb">
 						<div class="text-td">
-							<p>100% 匹配度</p>
-							<p>哇塞，最强基因非你莫属！</p>
-							<p>三行的样式居中对齐</p>
+							<p id="x_perv">照片正在对比中，请稍候...</p>
+							<p id="x_perv2">哇塞，最强基因非你莫属！</p>
+							<p></p>
 						</div>
 					</div>
 				</div>
@@ -93,7 +99,7 @@
 		<div class="goods-main">
 			<a class="close" href="javascript:;"></a>
 			<h3>我的排名</h3>
-			<h4>当前排名： <em>20</em> 名</h4>
+			<h4>当前排名：第 <em id="x_mytop">0</em> 名</h4>
 			<div class="rank-tb">
 				<div class="thead">
 					<div class="tr">
@@ -105,77 +111,30 @@
 				</div>
 			</div>
 			<div class="rank-tb rank-tb-bt">
-				<div class="tbody">
+				<div class="tbody" id="x_ulist">
 					<div class="tr">
-						<div class="td">NO1</div>
-						<div class="td"><img src="images/close.png"></div>
-						<div class="td">昵称昵称</div>
-						<div class="td">89%</div>
-					</div>
-					<div class="tr">
-						<div class="td">NO1</div>
-						<div class="td"><img src="images/close.png"></div>
-						<div class="td">昵称昵称</div>
-						<div class="td">89%</div>
-					</div>
-					<div class="tr">
-						<div class="td">NO1</div>
-						<div class="td"><img src="images/close.png"></div>
-						<div class="td">昵称昵称</div>
-						<div class="td">89%</div>
-					</div>
-					<div class="tr">
-						<div class="td">NO1</div>
-						<div class="td"><img src="images/close.png"></div>
-						<div class="td">昵称昵称</div>
-						<div class="td">89%</div>
-					</div>
-					<div class="tr">
-						<div class="td">NO1</div>
-						<div class="td"><img src="images/close.png"></div>
-						<div class="td">昵称昵称</div>
-						<div class="td">89%</div>
-					</div>
-					<div class="tr">
-						<div class="td">NO1</div>
-						<div class="td"><img src="images/close.png"></div>
-						<div class="td">昵称昵称</div>
-						<div class="td">89%</div>
-					</div>
-					<div class="tr">
-						<div class="td">NO1</div>
-						<div class="td"><img src="images/close.png"></div>
-						<div class="td">昵称昵称</div>
-						<div class="td">89%</div>
-					</div>
-					<div class="tr">
-						<div class="td">NO1</div>
-						<div class="td"><img src="images/close.png"></div>
-						<div class="td">昵称昵称</div>
-						<div class="td">89%</div>
-					</div>
-					<div class="tr">
-						<div class="td">NO1</div>
-						<div class="td"><img src="images/close.png"></div>
-						<div class="td">昵称昵称</div>
-						<div class="td">89%</div>
-					</div>
+						<div class="td"></div>
+						<div class="td"></div>
+						<div class="td">正在加载...</div>
+						<div class="td"></div>
+					</div>	
 				</div>
 			</div>
 		</div>
 	</div>
-
 	<div class="layer reg" style="display: none;">
-		<div class="reg-main">
+	    <form action="" name="form1" id="form1" method="post">
+    	<div class="reg-main">
 			<strong>请您输入有效的联系方式，方便获奖后联系您</strong>
 			<div class="reg-from">
-				<div><strong>*</strong><input type="text" name="" placeholder="姓名"></div>
-				<div><strong>*</strong><input type="tel" name="" placeholder="电话"></div>
-				<div><strong>*</strong><input type="text" name="" placeholder="年龄"></div>
-				<div><input type="text" name="" placeholder="职业"></div>
+				<div><strong>*</strong><input type="text" id="x_realname" name="x_realname" placeholder="姓名"></div>
+				<div><strong>*</strong><input type="tel" id="x_phone" name="x_phone" placeholder="电话"></div>
+				<div><strong>*</strong><input type="text" id="x_ages" name="x_ages" placeholder="年龄"></div>
+				<div><input type="text" id="x_jobon" name="x_jobon" placeholder="职业"></div>
 			</div>
 			<div class="bottom-btn"><a class="btn-next" href="javascript:;"></a></div>
 		</div>
+        </form>
 	</div>
 
 	<div class="layer upload" style="display: none;">
@@ -186,7 +145,7 @@
 					<div class="upload-file">
 						<div class="upload1">
 							<input type="file" name="">
-							<span><img src="images/code-idx.png"></span>
+							<span><img src=""></span>
 						</div>
 						<div class="upload2">
 							<input type="file" name="">
