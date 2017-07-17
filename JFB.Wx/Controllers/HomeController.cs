@@ -11,6 +11,7 @@ using System.Web;
 using System.Web.Mvc;
 using PJJ.Wx.Models;
 using JFB.Api.ImgCheckApi;
+using System.IO;
 
 namespace JFB.Wx.Controllers
 {
@@ -30,8 +31,8 @@ namespace JFB.Wx.Controllers
 
             ViewBag.islinked = new UserService().hasLinked(CurrentUser.ID);
 
-            RequestModel rm = new RequestModel();
-            var item = rm.getResult("http://imgcache.qq.com/open_proj/proj_qcloud_v2/gateway/event/pc/ci-identify/css/img/face_01.png", "http://imgcache.qq.com/open_proj/proj_qcloud_v2/gateway/event/pc/ci-identify/css/img/face_01.png", "123121231a");
+            //RequestModel rm = new RequestModel();
+            //var item = rm.getResult("http://imgcache.qq.com/open_proj/proj_qcloud_v2/gateway/event/pc/ci-identify/css/img/face_01.png", "http://imgcache.qq.com/open_proj/proj_qcloud_v2/gateway/event/pc/ci-identify/css/img/face_01.png", "123121231a");
             return View();
         }
 
@@ -77,7 +78,7 @@ namespace JFB.Wx.Controllers
             return Json(result);
 
         }
-
+        [AuthLogin]
         public JsonResult getLast()
         {
             AjaxMsgResult result = new AjaxMsgResult();
@@ -94,6 +95,61 @@ namespace JFB.Wx.Controllers
                 result.Msg = "请先上传照片";
             }
             return Json(result);
+        }
+        [AuthLogin]
+        public JsonResult upFile()
+        {
+            AjaxMsgResult reuslt = new AjaxMsgResult();
+            HttpPostedFileBase file = Request.Files[0];
+            string skey = "x_photo_up";
+            UpFileTypeInfo uftype = new UpFileTypeInfo();
+            if (Session[skey] != null)
+            {
+                uftype = Session[skey] as UpFileTypeInfo;
+            }
+            else
+            {
+                Session[skey] = uftype;
+            }
+            if (file != null)
+            {
+                string oripath = "/uploads/" + CurrentUser.ID + "/";
+                string path = Server.MapPath(oripath);
+                if (!Directory.Exists(path))
+                {
+                    Directory.CreateDirectory(path);
+                }
+                string filename = DateTime.Now.ToString("yyMMddhhmmssfff") + file.FileName;
+                file.SaveAs(path + filename);
+                string dbpath = oripath + filename;
+                if (string.IsNullOrEmpty(uftype.fatherp))
+                {
+                    uftype.fatherp = dbpath;
+                }
+                else if (string.IsNullOrEmpty(uftype.childp))
+                {
+                    uftype.childp = dbpath;
+                }
+                if (!string.IsNullOrEmpty(uftype.fatherp) && !string.IsNullOrEmpty(uftype.childp))
+                {
+                    UserPhotoService x_upService = new UserPhotoService();
+                    UserPhotoInfo uinfo = new UserPhotoInfo()
+                    {
+                        UserId = CurrentUser.ID,
+                         FatherPhoto = uftype.fatherp,
+                          ChildPhoto = uftype.childp,
+                           CreateTime = DateTime.Now,
+                            IsValid = 1,
+                             PerValueTime = DateTime.Now.AddYears(-100)
+                    };
+                    x_upService.Insert(uinfo);
+                    uftype.fatherp = null;
+                    uftype.childp = null;
+                }
+                reuslt.Success = true;
+                reuslt.Source = dbpath;
+            }
+            return Json(reuslt);
         }
     }
 }

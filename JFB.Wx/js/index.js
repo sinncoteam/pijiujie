@@ -69,11 +69,9 @@ function pageHide(e, b) {
     }
 }
 var param = {
-    isReg: false //初始化是否注册
+    isReg: false, //初始化是否注册
+    isUpin: false //是否已上传
 };
-$(function ()
-{
-
 
     // 加载
     // var queue = new createjs.LoadQueue(true);
@@ -173,6 +171,39 @@ $(function ()
             }
             });
         },
+        seephoto: function ()
+        {
+            var _this = this;
+            $.ajax({
+                url: "./home/getlast", dataType: "json", type: "post",
+                success: function (r)
+                {
+                    if (r.Success)
+                    {
+                        $("#x_fimg").attr("src", r.Source.FatherPhoto);
+                        $("#x_cimg").attr("src", r.Source.ChildPhoto);
+                        var pv = r.Source.PerValue;
+                        if (pv > 0)
+                        {
+                            $("#x_perv").text(r.Source.PerValue + "% 匹配度");
+                        }
+                        else
+                        {
+                            $("#x_perv2").empty();
+                        }
+                        _this.curPage2();
+                    }
+                    else
+                    {
+                        alert(r.Msg);
+                    }
+                },
+                error: function (e)
+                {
+                    alert("系统繁忙，请稍候再试！");
+                }
+            });
+        },
         addEvent: function ()
         {
             var _this = this;
@@ -243,36 +274,8 @@ $(function ()
             // 查看结果
             $(".btn-go").on("click", function ()
             {
-                $.ajax({
-                    url: "./home/getlast", dataType: "json", type: "post",
-                    success: function (r)
-                    {
-                        if (r.Success)
-                        {
-                            $("#x_fimg").attr("src", r.Source.FatherPhoto);
-                            $("#x_cimg").attr("src", r.Source.ChildPhoto);
-                            var pv = r.Source.PerValue;
-                            if (pv > 0)
-                            {
-                                $("#x_perv").text(r.Source.PerValue + "% 匹配度");
-                            }
-                            else
-                            {
-                                $("#x_perv2").empty();
-                            }
-                            _this.curPage2();
-                        }
-                        else
-                        {
-                            alert(r.Msg);
-                        }
-                    },
-                    error: function (e)
-                    {
-                        alert("系统繁忙，请稍候再试！");
-                    }
-                });
-
+                param.isUpin = true;
+                _this.seephoto();
             })
 
 
@@ -345,11 +348,10 @@ $(function ()
         }
 
     }
-    setTimeout(function ()
+    $(function ()
     {
-        game.init();
-    }, 200)
-
-
-
-})
+        setTimeout(function ()
+        {
+            game.init();
+        }, 200);
+    });

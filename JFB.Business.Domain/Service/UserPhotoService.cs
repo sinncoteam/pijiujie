@@ -18,7 +18,7 @@ namespace JFB.Business.Domain.Service
 
         public int GetMyTop(int userId)
         {
-            string sql = "select count(0) from t_d_user_photo where  pervalue>(select pervalue from t_d_user_photo where user_id = "+ userId +")";
+            string sql = "select count(0) from t_d_user_photo where  pervalue>(select max(pervalue) from t_d_user_photo where user_id = " + userId + " group by user_id)";
             return Convert.ToInt32(DataHelper.ExcuteScalar(sql));
         }
 

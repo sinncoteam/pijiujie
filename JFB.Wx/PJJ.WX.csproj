@@ -122,11 +122,13 @@
     <Compile Include="Component\Authentication.cs" />
     <Compile Include="Component\AuthLoginAttribute.cs" />
     <Compile Include="Component\BaseController.cs" />
+    <Compile Include="Controllers\ChecktoImg.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\WxController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\UpFileTypeInfo.cs" />
     <Compile Include="Models\UPInfo.cs" />
     <Compile Include="Models\WxUserInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -185,6 +187,7 @@
     <Content Include="js\preloadjs-0.6.2.min.js" />
     <Content Include="js\soundjs-0.6.2.min.js" />
     <Content Include="js\TweenMax.min.js" />
+    <Content Include="js\uploader.js" />
     <Content Include="js\video.min.js" />
     <Content Include="js\videojs-ie8.min.js" />
     <Content Include="Web.config" />
@@ -240,6 +243,9 @@
   <ItemGroup>
     <None Include="js\libs\jquery.fullpage.min.css.map" />
     <None Include="js\libs\jquery.fullpage.min.js.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="uploads\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
