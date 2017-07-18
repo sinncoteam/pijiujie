@@ -81,7 +81,7 @@ namespace JFB.Wx.Controllers
         {
             string json = Request.Form["jsondata"];
             string data = AESHelper.Decode(json);
-            Logging4net.WriteInfo(data);
+            //Logging4net.WriteInfo(data);
             if (!string.IsNullOrEmpty(data))
             {
                 JavaScriptSerializer jss = new JavaScriptSerializer();
@@ -107,7 +107,8 @@ namespace JFB.Wx.Controllers
                         //Lastlogintime = DateTime.Now,
                         NickName = wxu.nickname,
                         OpenId = wxu.openid,
-                        HeadImage = wxu.headimgurl
+                        HeadImage = wxu.headimgurl,
+                         SubTime = DateTime.Now.AddYears(-100)
                     };
                     uInfo.ID = Convert.ToInt32(x_userService.Insert(uInfo));
                     Authentication.Instance.SetAuth(uInfo, true);

@@ -65,7 +65,7 @@ namespace JFB.Api.ImgCheckApi
                     using (StreamReader reader = new StreamReader(response.GetResponseStream(), Encoding.UTF8))
                     {
                         string content = reader.ReadToEnd();
-                        Logging4net.WriteInfo("content: " + content);
+                        ///Logging4net.WriteInfo("content: " + content);
 
                         ImgResultModel model = jss.Deserialize<ImgResultModel>(content);
                         return model;

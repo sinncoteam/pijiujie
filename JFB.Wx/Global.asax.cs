@@ -26,7 +26,7 @@ namespace PJJ.Wx
             log4net.Config.XmlConfigurator.Configure();
             DMHelper.Instance.ExportMapping();
 
-            //startCheckImg();
+            startCheckImg();
         }
 
         void startCheckImg()

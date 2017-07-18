@@ -187,16 +187,18 @@ var param = {
                         if (pv > 0)
                         {
                             $("#x_perv").text(r.Source.PerValue + "% 匹配度");
+                            $("#x_prev2").show();
                         }
                         else
                         {
-                            $("#x_perv2").empty();
+                            $("#x_perv").text("匹配失败，请上传脸部清晰照");
+                            $("#x_perv2").hide();
                         }
 
                     }
                     else
                     {
-                        alert(r.Msg);
+                        //alert(r.Msg);
                     }
                 },
                 error: function (e)

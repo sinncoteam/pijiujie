@@ -69,8 +69,8 @@ namespace JFB.Wx.Component
                 //host = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + tenPayV3Info.AppId + "&redirect_uri=" + host + "&response_type=code&scope=snsapi_base&state=" + loginurl + "#wechat_redirect";
                 string host = ConfigurationManager.AppSettings["host"];
                 //string host = "xianyunsoft.xicp.cn";
-                string hostUrl = "http://wxin2.cqnews.net/authorize.aspx?gp=679fc6fc2cd842cba05e1f07660bc5ab&ga=0682ed39d45745ae879f43d06e267ed0&opa=";
-                 hostUrl += HttpUtility.UrlEncode( "http://"+ host +"/wx/reclogin?s="+pq);
+                string hostUrl = "http://wxin2.cqnews.net/authorize.aspx?gp=53f6b7a0975642e9801f0d91d6042a70&ga=0682ed39d45745ae879f43d06e267ed0&opa=";
+                 hostUrl += HttpUtility.UrlEncode( "http://"+ host +"/pjj/wx/reclogin?s="+pq);
                 
                 filterContext.Result = new RedirectResult(hostUrl);
             }

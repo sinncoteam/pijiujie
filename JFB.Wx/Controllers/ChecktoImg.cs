@@ -7,6 +7,7 @@ using JFB.Api.ImgCheckApi;
 using JFB.Business.Domain.Info;
 using System.Threading;
 using System.Configuration;
+using ViCore.Logging;
 
 namespace PJJ.Wx.Controllers
 {
@@ -18,6 +19,7 @@ namespace PJJ.Wx.Controllers
             while (true)
             {
                 UserPhotoService x_upService = new UserPhotoService();
+                string info = "start --- >>  ";
                 var list = x_upService.Get(a => a.PerValue == 0 && a.FatherPhoto != "" && a.ChildPhoto != "");
                 if (list != null && list.Count > 0)
                 {
@@ -25,11 +27,22 @@ namespace PJJ.Wx.Controllers
                     foreach (var item in list)
                     {
                         var res = rm.getResult("http://" + host + item.FatherPhoto, "http://" + host + item.ChildPhoto);
+                        //info += res.code + ".." + res.Message + "....http://" + host + item.FatherPhoto + "http://" + host + item.ChildPhoto +"   ";
+                        //Logging4net.WriteInfo(info);
                         if (res != null && res.code == 0)
                         {
-                            x_upService.Update(() => new UserPhotoInfo() { PerValue = Convert.ToInt32(res.data.similarity), PerValueTime = DateTime.Now }, a => a.ID == item.ID);
+                            int similar = Convert.ToInt32(res.data.similarity);
+                            if (similar <= 0)
+                            {
+                                similar = -1;
+                            }
+                            x_upService.Update(() => new UserPhotoInfo() { PerValue = similar, PerValueTime = DateTime.Now }, a => a.ID == item.ID);
                         }
-                        Thread.Sleep(300);
+                        else if (res.code != 0)
+                        {
+                            x_upService.Update(() => new UserPhotoInfo() { PerValue = -1, PerValueTime = DateTime.Now }, a => a.ID == item.ID);
+                        }
+                        Thread.Sleep(3000);
                     }
                 }
                 else
