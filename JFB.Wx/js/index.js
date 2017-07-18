@@ -325,7 +325,10 @@ var param = {
             $(".btn-go").on("click", function ()
             {
                 param.isUpin = true;
+                $("#x_perv").text("照片正在对比中，请稍候...");
                 _this.seephoto();
+                $(".btn-meto").hide();
+                $(".btn-again").show();
                 _this.curPage2();
             })
 

@@ -42,7 +42,7 @@ namespace PJJ.Wx.Controllers
                         {
                             x_upService.Update(() => new UserPhotoInfo() { PerValue = -1, PerValueTime = DateTime.Now }, a => a.ID == item.ID);
                         }
-                        Thread.Sleep(3000);
+                        Thread.Sleep(300);
                     }
                 }
                 else
