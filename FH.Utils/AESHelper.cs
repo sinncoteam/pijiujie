@@ -13,7 +13,7 @@ namespace JFB.Utils
         //private static byte[] Keys = { 0x41, 0x72, 0x65, 0x79, 0x6F, 0x75, 0x6D, 0x79, 0x53, 0x6E, 0x6F, 0x77, 0x6D, 0x61, 0x6E, 0x3F };
         private static string KeysIV = "E4ghj*Ghg7!rNIfb&*5GUY86KfghUb#er57HBh(u%g6HM($jhWk7&!hg4ui%$hjk".Substring(0,16);
         private static string encryptKey = "bqdhIyip60M0vb6m";
-        private static string decryptKey = "7b29e94b1b0bbaed";
+        private static string decryptKey = "8db4715aa37ba370";
         public static string Encode(string encryptString)
         {
             RijndaelManaged rijndaelProvider = new RijndaelManaged();

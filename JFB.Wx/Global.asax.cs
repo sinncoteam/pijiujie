@@ -6,6 +6,8 @@ using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Routing;
 using ViData;
+using System.Threading;
+using PJJ.Wx.Controllers;
 
 namespace PJJ.Wx
 {
@@ -23,6 +25,15 @@ namespace PJJ.Wx
 
             log4net.Config.XmlConfigurator.Configure();
             DMHelper.Instance.ExportMapping();
+
+            startCheckImg();
+        }
+
+        void startCheckImg()
+        {
+            ThreadStart ts = new ThreadStart(ChecktoImg.getPerValue);
+            Thread th = new Thread(ts);
+            th.Start();
         }
     }
 }

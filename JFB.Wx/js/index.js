@@ -69,11 +69,10 @@ function pageHide(e, b) {
     }
 }
 var param = {
-    isReg: false //初始化是否注册
+    isReg: false, //初始化是否注册
+    isUpin: false, //是否已上传
+    isintime: true
 };
-$(function ()
-{
-
 
     // 加载
     // var queue = new createjs.LoadQueue(true);
@@ -150,7 +149,7 @@ $(function ()
         seelist: function ()
         {
             $(".goods").fadeIn();
-            $.ajax({ url: "./home/getlist", type: "post", dataType: "json", success: function (r)
+            $.ajax({ url: "/pjj/home/getlist", type: "post", dataType: "json", success: function (r)
             {
                 if (r.Success)
                 {
@@ -173,13 +172,52 @@ $(function ()
             }
             });
         },
+        seephoto: function ()
+        {
+            var _this = this;
+            $.ajax({
+                url: "/pjj/home/getlast", dataType: "json", type: "post",
+                success: function (r)
+                {
+                    if (r.Success)
+                    {
+                        $("#x_fimg").attr("src", r.Source.FatherPhoto);
+                        $("#x_cimg").attr("src", r.Source.ChildPhoto);
+                        var pv = r.Source.PerValue;
+                        if (pv > 0)
+                        {
+                            $("#x_perv").text(r.Source.PerValue + "% 匹配度");
+                            $("#x_prev2").show();
+                        }
+                        else
+                        {
+                            $("#x_perv").text("匹配失败，请上传脸部清晰照");
+                            $("#x_perv2").hide();
+                        }
+
+                    }
+                    else
+                    {
+                        //alert(r.Msg);
+                    }
+                },
+                error: function (e)
+                {
+                    alert("系统繁忙，请稍候再试！");
+                }
+            });
+        },
         addEvent: function ()
         {
             var _this = this;
             // 点击马上测试
             $(".btn-start").on("click", function ()
             {
-
+                if (!param.isintime)
+                {
+                    alert("活动已过期");
+                    return;
+                }
                 // 如果没注册 弹出注册
                 if (!param.isReg)
                 {
@@ -217,7 +255,7 @@ $(function ()
                     if (xages == "") { alert("请输入您的年龄"); return; }
                     if (isNaN(xages)) { alert("年龄必须是整数"); return; }
                     $.ajax({
-                        url: "./home/setlink", data: $("#form1").serialize(), dataType: "json", type: "post", success: function (r)
+                        url: "/pjj/home/setlink", data: $("#form1").serialize(), dataType: "json", type: "post", success: function (r)
                         {
                             if (r.Success)
                             {
@@ -243,36 +281,9 @@ $(function ()
             // 查看结果
             $(".btn-go").on("click", function ()
             {
-                $.ajax({
-                    url: "./home/getlast", dataType: "json", type: "post",
-                    success: function (r)
-                    {
-                        if (r.Success)
-                        {
-                            $("#x_fimg").attr("src", r.Source.FatherPhoto);
-                            $("#x_cimg").attr("src", r.Source.ChildPhoto);
-                            var pv = r.Source.PerValue;
-                            if (pv > 0)
-                            {
-                                $("#x_perv").text(r.Source.PerValue + "% 匹配度");
-                            }
-                            else
-                            {
-                                $("#x_perv2").empty();
-                            }
-                            _this.curPage2();
-                        }
-                        else
-                        {
-                            alert(r.Msg);
-                        }
-                    },
-                    error: function (e)
-                    {
-                        alert("系统繁忙，请稍候再试！");
-                    }
-                });
-
+                param.isUpin = true;
+                _this.seephoto();
+                _this.curPage2();
             })
 
 
@@ -345,11 +356,10 @@ $(function ()
         }
 
     }
-    setTimeout(function ()
+    $(function ()
     {
-        game.init();
-    }, 200)
-
-
-
-})
+        setTimeout(function ()
+        {
+            game.init();
+        }, 200);
+    });

@@ -12,13 +12,13 @@ namespace JFB.Business.Domain.Service
     {
         public IList<UserPhotoInfo> GetTopList(int topn)
         {
-            string sql = "select top "+ topn +" up.*, u.headimage, u.nickname from t_d_user_photo up inner join t_d_user u on u.id = up.user_id order by pervalue desc, id desc";
+            string sql = "select top " + topn + " up.*, u.headimage, u.nickname from t_d_user u inner join (select  max(pervalue) as pervalue, user_id from t_d_user_photo where pervalue > 0 group by user_id) up on u.id = up.user_id  order by pervalue desc, id desc";
             return DataHelper.Fill<UserPhotoInfo>(sql);
         }
 
         public int GetMyTop(int userId)
         {
-            string sql = "select count(0) from t_d_user_photo where  pervalue>(select pervalue from t_d_user_photo where user_id = "+ userId +")";
+            string sql = "select count(0) from t_d_user_photo where  pervalue>(select max(pervalue) from t_d_user_photo where user_id = " + userId + " group by user_id)";
             return Convert.ToInt32(DataHelper.ExcuteScalar(sql));
         }
 

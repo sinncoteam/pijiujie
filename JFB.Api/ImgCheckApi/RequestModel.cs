@@ -20,32 +20,27 @@ namespace JFB.Api.ImgCheckApi
             {
                 if (string.IsNullOrEmpty(_authrize))
                 {
-                    //_authrize = string.Format("a={0}&b={1}&k={2}&e={3}&t={4}&r={5}&u=0&f=", "1252343337", "pjj0", "AKIDCRbdVCW5IJDyYDtFbmss00paFpHXehWC", TimeHelper.GetTimeStamp(DateTime.Now.AddDays(30), 11), TimeHelper.GetTimeStamp(DateTime.Now, 11), new Random().Next(4, 100000000));
-                    _authrize = "a=1252821871&b=tencentyun&k=AKIDgaoOYh2kOmJfWVdH4lpfxScG2zPLPGoK&e=1438669115&t=1436077115&r=11162&u=0&f=";
+                    _authrize = string.Format("a={0}&b={1}&k={2}&e={3}&t={4}&r={5}&u=0&f=", "1252343337", "pjj0", "AKIDCRbdVCW5IJDyYDtFbmss00paFpHXehWC", TimeHelper.GetTimeStamp(DateTime.Now.AddDays(30), 10), TimeHelper.GetTimeStamp(DateTime.Now, 10), new Random().Next(4, 100000000));
+                    //_authrize = "a=1252821871&b=tencentyun&k=AKIDgaoOYh2kOmJfWVdH4lpfxScG2zPLPGoK&e=1438669115&t=1436077115&r=11162&u=0&f=";
                 }
                 return _authrize;
             }
         }
 
-        //public const string AuthrizeKey = "mx21pT4Ys0ynV7e3IPL5e1DpLk3JQM7z";
-        public const string AuthrizeKey = "nwOKDouy5JctNOlnere4gkVoOUz5EYAb";
+        public const string AuthrizeKey = "mx21pT4Ys0ynV7e3IPL5e1DpLk3JQM7z";
+        //public const string AuthrizeKey = "nwOKDouy5JctNOlnere4gkVoOUz5EYAb";
 
 
         public string getAuthrizeStr()
         {
             HMACSHA1 hmac = new HMACSHA1(Encoding.UTF8.GetBytes(AuthrizeKey), true);
 
-            //HMACSHA1 hmac = HMACSHA1.Create("HMACSHA1") as HMACSHA1;
-            //hmac.Key = Encoding.UTF8.GetBytes(AuthrizeKey);
             var dataBuffer = Encoding.UTF8.GetBytes(Authrize);
-            //var hashBytes = hmac.ComputeHash(dataBuffer);
+            byte[] hashBytes = hmac.ComputeHash(dataBuffer);
+            byte[] allBytes = hashBytes.Concat(dataBuffer).ToArray();
 
-            CryptoStream cs = new CryptoStream(Stream.Null, hmac, CryptoStreamMode.Write);
-            cs.Write(dataBuffer, 0, dataBuffer.Length);
-            cs.Close();
-            string hs = Convert.ToBase64String(hmac.Hash);
-            return hs;
-           // return Convert.ToBase64String(hashBytes);
+            string str = Convert.ToBase64String(allBytes);
+            return str;
         }
 
         public ImgResultModel getResult(string img1, string img2, string imgId  = null)
@@ -55,9 +50,10 @@ namespace JFB.Api.ImgCheckApi
             string authkey = getAuthrizeStr();
             HttpWebRequest webRequest = (HttpWebRequest)WebRequest.Create(url);
             webRequest.Method = "POST";
+            //webRequest.Credentials = new NetworkCredential("AKIDCRbdVCW5IJDyYDtFbmss00paFpHXehWC", AuthrizeKey);
             webRequest.Headers.Add("Authorization", authkey);
             webRequest.ContentType = "application/json";
-            string jsonData = jss.Serialize(new { appid = "1252821871", url = img1, urlB = img2 });
+            string jsonData = jss.Serialize(new { appid = "1252343337", urlA = img1, urlB = img2 });
             byte[] byteArray = Encoding.UTF8.GetBytes(jsonData);
             webRequest.ContentLength = byteArray.Length;
             using (Stream newStream = webRequest.GetRequestStream())//创建一个Stream,赋值是写入HttpWebRequest对象提供的一个stream里面
@@ -69,7 +65,7 @@ namespace JFB.Api.ImgCheckApi
                     using (StreamReader reader = new StreamReader(response.GetResponseStream(), Encoding.UTF8))
                     {
                         string content = reader.ReadToEnd();
-                        Logging4net.WriteInfo("content: " + content);
+                        ///Logging4net.WriteInfo("content: " + content);
 
                         ImgResultModel model = jss.Deserialize<ImgResultModel>(content);
                         return model;
