@@ -13,6 +13,10 @@ using PJJ.Wx.Models;
 using JFB.Api.ImgCheckApi;
 using System.IO;
 using System.Configuration;
+using Senparc.Weixin.MP.TenPayLibV3;
+using Senparc.Weixin.MP.Entities;
+using ViCore.Caching;
+using Senparc.Weixin.MP.CommonAPIs;
 
 namespace JFB.Wx.Controllers
 {
@@ -31,8 +35,29 @@ namespace JFB.Wx.Controllers
 
             //Authentication.Instance.SetAuth(new UserInfo() { ID = 4 }, true);
 
+            string host = ConfigurationManager.AppSettings["host"];
             ViewBag.islinked = new UserService().hasLinked(CurrentUser.ID);
             ViewBag.isInTime = isInTime();
+            var wx = wxjsApiPay();
+            ViewBag.AppId = wx.AppId;
+            ViewBag.Timestamp = wx.Timestamp;
+            ViewBag.Noncestr = wx.Noncestr;
+            ViewBag.Signature = wx.Signature;
+            string p =  Request.QueryString["p"];
+            if (string.IsNullOrEmpty(p))
+            {
+                p = "1";
+            }
+            ViewBag.P = p;
+            int uid = 0;
+            if(!string.IsNullOrEmpty(Request.QueryString["u"]))
+            {
+                uid = Convert.ToInt32(Request.QueryString["u"]);
+            }
+            ViewBag.U = uid;
+            ViewBag.ShareUrl = "http://"+ host+"/pjj?p=3&u="+ CurrentUser.ID;
+            ViewBag.Logo = "http://"+ host +"/pjj/images/logo.png";
+
             //RequestModel rm = new RequestModel();
             //var item = rm.getResult("http://imgcache.qq.com/open_proj/proj_qcloud_v2/gateway/event/pc/ci-identify/css/img/face_01.png", "http://imgcache.qq.com/open_proj/proj_qcloud_v2/gateway/event/pc/ci-identify/css/img/face_01.png", "123121231a");
             return View();
@@ -64,6 +89,7 @@ namespace JFB.Wx.Controllers
         {
             AjaxMsgResult result = new AjaxMsgResult();
             UserPhotoService x_upService = new UserPhotoService();
+           
             
             List<UPInfo> list = new List<UPInfo>();
             var upl = x_upService.GetTopList(20);
@@ -78,10 +104,11 @@ namespace JFB.Wx.Controllers
                        PerValue = item.PerValue
                 };
                 list.Add(info);
+                i++;
             }
             result.Success = true;
             result.Source = list;
-            result.Code = (x_upService.GetMyTop(CurrentUser.ID)+1).ToString();
+            result.Code = x_upService.GetMyTop(CurrentUser.ID).ToString();
             return Json(result);
 
         }
@@ -95,8 +122,17 @@ namespace JFB.Wx.Controllers
                 result.Msg = "活动已过期";
                 return Json(result);
             }
+            int userid = 0;
+            if (!string.IsNullOrEmpty(Request.Form["uid"]))
+            {
+                userid = Convert.ToInt32(Request.Form["uid"]);
+            }
+            if (userid == 0)
+            {
+                userid = CurrentUser.ID;
+            }
             UserPhotoService x_upService = new UserPhotoService();
-            var item = x_upService.GetMyLast(CurrentUser.ID);
+            var item = x_upService.GetMyLast(userid);
             if (item != null)
             {
                 result.Success = true;
@@ -181,6 +217,35 @@ namespace JFB.Wx.Controllers
                 return true;
             }
             return false;
+        }
+
+        string Appid = ConfigurationManager.AppSettings["appid"];
+        string Appkey = ConfigurationManager.AppSettings["appkey"];
+        protected WxpayInfo wxjsApiPay()
+        {
+            string wxkey = "s_wx_key_ticket";
+            string timeStamp = TenPayV3Util.GetTimestamp();
+            string nonceStr = TenPayV3Util.GetNoncestr();
+            JsApiTicketResult wxTicket = CacheManager.Instance.Get<JsApiTicketResult>(wxkey);
+            if (wxTicket == null)
+            {
+                wxTicket = CommonApi.GetTicket(Appid, Appkey);
+                CacheManager.Instance.Set(wxkey, wxTicket, 0, wxTicket.expires_in - 120);
+            }
+            string url = Request.Url.AbsoluteUri;
+            Senparc.Weixin.MP.TenPayLib.RequestHandler nativeHandler = new Senparc.Weixin.MP.TenPayLib.RequestHandler(null);
+            nativeHandler.SetParameter("jsapi_ticket", wxTicket.ticket);
+            nativeHandler.SetParameter("noncestr", nonceStr);
+            nativeHandler.SetParameter("timestamp", timeStamp);
+            nativeHandler.SetParameter("url", url);
+            string sign = nativeHandler.CreateSHA1Sign();
+            return new WxpayInfo()
+            {
+                AppId = Appid,
+                Noncestr = nonceStr,
+                Timestamp = timeStamp,
+                Signature = sign
+            };
         }
     }
 }

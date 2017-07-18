@@ -7,11 +7,34 @@
     {
         <script type="text/javascript">            param.isintime = false;</script>   
     }
+    if( ViewBag.P != "1")
+    {
+    <script type="text/javascript">
+        $(function ()
+        {
+            game.curPage2();
+            game.addEvent();
+            game.seephoto();
+            param.uid = @(ViewBag.U);
+        });
+    </script>
+    }
+    else{
+        <script type="text/javascript">
+            $(function ()
+            {
+                setTimeout(function ()
+                {
+                    game.init();
+                }, 200);
+            });
+        </script>
+    }
     }
 <script src="~/js/uploader.js" type="text/javascript"></script>
 <!-- 声音数据 -->
-	<div id="audio_btn" class="video_exist rotate" style="display: none;">
-		<audio loop src="~/images/bgm.mp3" id="media"  preload=""></audio>
+	<div id="audio_btn" class="video_exist rotate" >
+		<audio loop src="~/images/bgm.mp3?v=1.1" id="media"  preload=""></audio>
 	</div> 
 	<!-- load页面 -->
 	<div class="page page0 active" style="display: block;">
@@ -69,7 +92,7 @@
 					<div class="text-tb">
 						<div class="text-td">
 							<p id="x_perv">照片正在对比中，请稍候...</p>
-							<p id="x_perv2">哇塞，最强基因非你莫属！</p>
+							<p id="x_perv2"></p>
 							<p></p>
 						</div>
 					</div>
@@ -99,7 +122,7 @@
 			<h3>活动说明</h3>
 			<h4><em>武隆天坑寨子泥地亲子季——“最强基因”</em></h4>
 			<div class="saying-tt">
-				<p><strong>*</strong><span>活动时间：7月11日至7月20日</span></p>
+				<p><strong>*</strong><span>活动时间：7月19日至8月10日</span></p>
 				<p><strong>*</strong><span>家长上传孩子与自己最像的一张照片（父子、母子、父女、母女均可），进行生成，(该照片需注明姓名、年龄、电话、方便联系您领取奖品。)</span></p>
 				<p><strong>*</strong><span>最终入选的10对获胜的亲子家庭将获得天坑寨子爱心互助启动资金200元，10对亲子家庭将利用这200元爱心互助启动资金购买礼物，为天坑寨子邀请的10位武隆当地的留守儿童送去温暖，并和他们度过愉快的周末，参与泥地亲子活动还有可能获得丰厚的现金奖励。</span></p>
 				<p><strong>*</strong><span>承办单位：武隆天坑寨子景区</span></p>
@@ -158,18 +181,71 @@
 					<em>上传您和孩子的照片  <span id="x_up_gress"></span></em>
 					<div class="upload-file">
 						<div class="upload1">
-							<input type="file" name="fileToUpload" class="fileToUpload" accept="image/*" capture="camera" onchange="fileSelected(this,1);">
+							<input type="file" name="fileToUpload" class="fileToUpload" accept="image/*"   onchange="fileSelected(this,1);">
 							<span class="upimg1"><img   src=""></span>
 						</div>
 						<div class="upload2">
-							<input type="file" name="fileToUpload" class="fileToUpload" accept="image/*" capture="camera" onchange="fileSelected(this,2);">
+							<input type="file" name="fileToUpload" class="fileToUpload" accept="image/*"   onchange="fileSelected(this,2);">
 							<span class="upimg2"><img   src=""></span>
 						</div>
 					</div>
+                    <span>上传要求：五官清晰，正面照片脸部无遮挡。</span>
 					<span>小提示：尽可能选择您和孩子最像的照片，测试匹配度会更高哦~</span>
 				</div>
 			</div>
 			<div class="bottom-btn"><a class="btn-go" href="javascript:;"></a></div>
 		</div>
 	</div>
+
+<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+    wx.config({
+        debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+        appId: '@(ViewBag.AppId)', // 必填，公众号的唯一标识
+        timestamp: '@(ViewBag.Timestamp)', // 必填，生成签名的时间戳
+        nonceStr: '@(ViewBag.Noncestr)', // 必填，生成签名的随机串
+        signature: '@(ViewBag.Signature)', // 必填，签名，见附录1
+        jsApiList: ["onMenuShareTimeline", "onMenuShareAppMessage", "hideMenuItems"] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+    });
+    wx.error(function (res)
+    {
+        
+    });
+    wx.ready(function ()
+    {
+        wx.hideMenuItems({
+            menuList: ["menuItem:share:qq", "menuItem:share:weiboApp", "menuItem:share:QZone", "menuItem:share:facebook", "menuItem:openWithQQBrowser"]
+        });
+        wx.onMenuShareTimeline({
+            title: '武隆天坑寨子泥地亲子季——“最强基因”等你来战', // 分享标题
+            link: '@(Html.Raw(ViewBag.ShareUrl))', // 分享链接
+            imgUrl: '@(ViewBag.Logo)', // 分享图标
+            success: function ()
+            {
+                // 用户确认分享后执行的回调函数
+            },
+            cancel: function ()
+            {
+                // 用户取消分享后执行的回调函数
+            }
+        });
+        wx.onMenuShareAppMessage({
+            title: '最强基因', // 分享标题
+            desc: '武隆天坑寨子泥地亲子季——“最强基因”等你来战', // 分享描述
+            link: '@(Html.Raw(ViewBag.ShareUrl))', // 分享链接
+            imgUrl: '@(ViewBag.Logo)', // 分享图标
+            type: '', // 分享类型,music、video或link，不填默认为link
+            dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
+            success: function ()
+            {
+                // 用户确认分享后执行的回调函数
+            },
+            cancel: function ()
+            {
+                // 用户取消分享后执行的回调函数
+            }
+        });
+    });
+    </script>
  

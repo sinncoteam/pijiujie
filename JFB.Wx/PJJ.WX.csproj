@@ -45,6 +45,15 @@
       <HintPath>..\..\..\ZC.Monitor\lib\log4net.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Senparc.Weixin">
+      <HintPath>..\..\lib\Senparc.Weixin.dll</HintPath>
+    </Reference>
+    <Reference Include="Senparc.Weixin.MP">
+      <HintPath>..\..\lib\Senparc.Weixin.MP.dll</HintPath>
+    </Reference>
+    <Reference Include="Senparc.Weixin.MP.MvcExtension">
+      <HintPath>..\..\lib\Senparc.Weixin.MP.MvcExtension.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -130,6 +139,7 @@
     </Compile>
     <Compile Include="Models\UpFileTypeInfo.cs" />
     <Compile Include="Models\UPInfo.cs" />
+    <Compile Include="Models\WxpayInfo.cs" />
     <Compile Include="Models\WxUserInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -158,6 +168,7 @@
     <Content Include="images\btn-starts.png" />
     <Content Include="images\close.png" />
     <Content Include="images\code-idx.png" />
+    <Content Include="images\logo.png" />
     <Content Include="images\normalmusic.png" />
     <Content Include="images\nums.png" />
     <Content Include="images\page1-02.png" />

@@ -71,7 +71,8 @@ function pageHide(e, b) {
 var param = {
     isReg: false, //初始化是否注册
     isUpin: false, //是否已上传
-    isintime: true
+    isintime: true,
+    uid:0
 };
 
     // 加载
@@ -176,18 +177,59 @@ var param = {
         {
             var _this = this;
             $.ajax({
-                url: "/pjj/home/getlast", dataType: "json", type: "post",
+                url: "/pjj/home/getlast", data: { uid: param.uid }, dataType: "json", type: "post",
                 success: function (r)
                 {
                     if (r.Success)
                     {
                         $("#x_fimg").attr("src", r.Source.FatherPhoto);
                         $("#x_cimg").attr("src", r.Source.ChildPhoto);
-                        var pv = r.Source.PerValue;
+                        var pv = parseInt(r.Source.PerValue);
                         if (pv > 0)
                         {
-                            $("#x_perv").text(r.Source.PerValue + "% 匹配度");
-                            $("#x_prev2").show();
+                            $("#x_perv").text(pv + "% 匹配度");
+                            var sshow = "";
+                            if (pv > 0 && pv <= 9)
+                            {
+                                sshow = "嘿，照片传错了吧！";
+                            }
+                            else if (pv > 9 && pv <= 29)
+                            {
+                                sshow = "气质还是很接近的！";
+                            }
+                            else if (pv > 29 && pv <= 39)
+                            {
+                                sshow = "相信我，一百米外还是很相像的！";
+                            }
+                            else if (pv > 39 && pv <= 49)
+                            {
+                                sshow = "看，你们两的耳朵一模一样，有木有！";
+                            }
+                            else if (pv > 49 && pv <= 59)
+                            {
+                                sshow = "好的基因都继承了，至于另外50%不好的……";
+                            }
+                            else if (pv > 59 && pv <= 69)
+                            {
+                                sshow = "嗨！奔波儿灞！NONO！我是灞波儿奔！";
+                            }
+                            else if (pv > 69 && pv <= 79)
+                            {
+                                sshow = "不错哦，气质和样貌都非常接近。";
+                            }
+                            else if (pv > 79 && pv <= 89)
+                            {
+                                sshow = "哎呦不错，长的太像了~";
+                            }
+                            else if (pv > 89 && pv <= 99)
+                            {
+                                sshow = "魔镜魔镜，为什么这两人一模一样。";
+                            }
+                            else
+                            {
+                                sshow = "哇塞，最强基因非你莫属！";
+                            }
+                            $("#x_perv2").text(sshow).show();
                         }
                         else
                         {
@@ -218,6 +260,7 @@ var param = {
                     alert("活动已过期");
                     return;
                 }
+                param.uid = 0;
                 // 如果没注册 弹出注册
                 if (!param.isReg)
                 {
@@ -356,10 +399,4 @@ var param = {
         }
 
     }
-    $(function ()
-    {
-        setTimeout(function ()
-        {
-            game.init();
-        }, 200);
-    });
+
