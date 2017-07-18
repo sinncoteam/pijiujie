@@ -12,13 +12,15 @@ using System.Web.Mvc;
 using PJJ.Wx.Models;
 using JFB.Api.ImgCheckApi;
 using System.IO;
+using System.Configuration;
 
 namespace JFB.Wx.Controllers
 {
     
     public class HomeController : BaseController
     {
-        //[AuthLogin]
+
+        [AuthLogin]
         public ActionResult Index()
         {
             //string json = @"knhQSJz5RNmB12KbO5Py5FFR+LfDsec5nYSYDDLGx9v4mIaxgtZU8tIGLbnlVUI46H3MF8+4Wp/JFfjYw0tmn/K3hfktUeLFB12/be5RtCaf1aF0lDRvOGcXn7ta69p0T+Gy3e/qdeeadeRu8XyvtpdTAtyy7a39qGQxbSv3tSjkpQtsfobdgg1oMXe5Ve9sNFSSMuBSzo3VqcSkoCEXsUdkKw6G5Jz5ngXTKh+4xA3XD2v3Kos850MYDxqGI79OROgQBgkfy1oaHQ3NQ7MZzZ5HIsM+B4zkmS0BxZaUstgFiAhhE8zMm85j3uxAy5RLjxGi8orb/0QKwBiblzGprhND51xmhs2GUpNguoiyCGuX1drohFidK5B0U5eL+mZTpRQ9FSFuZZBmAEv6zFzn563uZO1i2D08HkrS1AO9IxgyrcC7QW62u/zpjkYgvtqCMODkPJ1BvU/o4ykNLD4A5w==";
@@ -27,10 +29,10 @@ namespace JFB.Wx.Controllers
 
             //string ss = AESHelper.AESDecrypt(json, "7b29e94b1b0bbaed");
 
-            Authentication.Instance.SetAuth(new UserInfo() { ID = 4 }, true);
+            //Authentication.Instance.SetAuth(new UserInfo() { ID = 4 }, true);
 
             ViewBag.islinked = new UserService().hasLinked(CurrentUser.ID);
-
+            ViewBag.isInTime = isInTime();
             //RequestModel rm = new RequestModel();
             //var item = rm.getResult("http://imgcache.qq.com/open_proj/proj_qcloud_v2/gateway/event/pc/ci-identify/css/img/face_01.png", "http://imgcache.qq.com/open_proj/proj_qcloud_v2/gateway/event/pc/ci-identify/css/img/face_01.png", "123121231a");
             return View();
@@ -40,6 +42,11 @@ namespace JFB.Wx.Controllers
         public JsonResult SetLink()
         {
             AjaxMsgResult result = new AjaxMsgResult();
+            if (!isInTime())
+            {
+                result.Msg = "活动已过期";
+                return Json(result);
+            }
             string realname = Request.Form["x_realname"];
             string phone = Request.Form["x_phone"];
             int ages = Convert.ToInt32(Request.Form["x_ages"]);
@@ -81,7 +88,13 @@ namespace JFB.Wx.Controllers
         [AuthLogin]
         public JsonResult getLast()
         {
+
             AjaxMsgResult result = new AjaxMsgResult();
+            if (!isInTime())
+            {
+                result.Msg = "活动已过期";
+                return Json(result);
+            }
             UserPhotoService x_upService = new UserPhotoService();
             var item = x_upService.GetMyLast(CurrentUser.ID);
             if (item != null)
@@ -100,6 +113,11 @@ namespace JFB.Wx.Controllers
         public JsonResult upFile()
         {
             AjaxMsgResult reuslt = new AjaxMsgResult();
+            if (!isInTime())
+            {
+                reuslt.Msg = "活动已过期";
+                return Json(reuslt);
+            }
             HttpPostedFileBase file = Request.Files[0];
             string skey = "x_photo_up";
             UpFileTypeInfo uftype = new UpFileTypeInfo();
@@ -150,6 +168,19 @@ namespace JFB.Wx.Controllers
                 reuslt.Source = dbpath;
             }
             return Json(reuslt);
+        }
+
+        bool isInTime()
+        {
+            string timestr = ConfigurationManager.AppSettings["gametime"];
+            string[] timearr = timestr.Split('-');
+            DateTime t1 = Convert.ToDateTime(timearr[0]);
+            DateTime t2 = Convert.ToDateTime(timearr[1]);
+            if (DateTime.Now >= t1 && DateTime.Now <= t2)
+            {
+                return true;
+            }
+            return false;
         }
     }
 }

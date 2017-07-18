@@ -70,7 +70,8 @@ function pageHide(e, b) {
 }
 var param = {
     isReg: false, //初始化是否注册
-    isUpin: false //是否已上传
+    isUpin: false, //是否已上传
+    isintime: true
 };
 
     // 加载
@@ -148,7 +149,7 @@ var param = {
         seelist: function ()
         {
             $(".goods").fadeIn();
-            $.ajax({ url: "./home/getlist", type: "post", dataType: "json", success: function (r)
+            $.ajax({ url: "/pjj/home/getlist", type: "post", dataType: "json", success: function (r)
             {
                 if (r.Success)
                 {
@@ -175,7 +176,7 @@ var param = {
         {
             var _this = this;
             $.ajax({
-                url: "./home/getlast", dataType: "json", type: "post",
+                url: "/pjj/home/getlast", dataType: "json", type: "post",
                 success: function (r)
                 {
                     if (r.Success)
@@ -191,7 +192,7 @@ var param = {
                         {
                             $("#x_perv2").empty();
                         }
-                        _this.curPage2();
+
                     }
                     else
                     {
@@ -210,7 +211,11 @@ var param = {
             // 点击马上测试
             $(".btn-start").on("click", function ()
             {
-
+                if (!param.isintime)
+                {
+                    alert("活动已过期");
+                    return;
+                }
                 // 如果没注册 弹出注册
                 if (!param.isReg)
                 {
@@ -248,7 +253,7 @@ var param = {
                     if (xages == "") { alert("请输入您的年龄"); return; }
                     if (isNaN(xages)) { alert("年龄必须是整数"); return; }
                     $.ajax({
-                        url: "./home/setlink", data: $("#form1").serialize(), dataType: "json", type: "post", success: function (r)
+                        url: "/pjj/home/setlink", data: $("#form1").serialize(), dataType: "json", type: "post", success: function (r)
                         {
                             if (r.Success)
                             {
@@ -276,6 +281,7 @@ var param = {
             {
                 param.isUpin = true;
                 _this.seephoto();
+                _this.curPage2();
             })
 
 

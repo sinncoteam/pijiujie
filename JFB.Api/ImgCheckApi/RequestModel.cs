@@ -20,7 +20,7 @@ namespace JFB.Api.ImgCheckApi
             {
                 if (string.IsNullOrEmpty(_authrize))
                 {
-                    _authrize = string.Format("a={0}&b={1}&k={2}&e={3}&t={4}&r={5}&u=0&f=", "1252343337", "pjj0", "AKIDCRbdVCW5IJDyYDtFbmss00paFpHXehWC", TimeHelper.GetTimeStamp(DateTime.Now.AddDays(30), 11), TimeHelper.GetTimeStamp(DateTime.Now, 11), new Random().Next(4, 100000000));
+                    _authrize = string.Format("a={0}&b={1}&k={2}&e={3}&t={4}&r={5}&u=0&f=", "1252343337", "pjj0", "AKIDCRbdVCW5IJDyYDtFbmss00paFpHXehWC", TimeHelper.GetTimeStamp(DateTime.Now.AddDays(30), 10), TimeHelper.GetTimeStamp(DateTime.Now, 10), new Random().Next(4, 100000000));
                     //_authrize = "a=1252821871&b=tencentyun&k=AKIDgaoOYh2kOmJfWVdH4lpfxScG2zPLPGoK&e=1438669115&t=1436077115&r=11162&u=0&f=";
                 }
                 return _authrize;
