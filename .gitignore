@@ -1,5 +1,6 @@
 *.dll
 *.xml
+*.suo
 
 #Ignore thumbnails created by Windows
 Thumbs.db
