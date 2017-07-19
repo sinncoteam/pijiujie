@@ -133,6 +133,8 @@ namespace JFB.Wx.Controllers
             }
             UserPhotoService x_upService = new UserPhotoService();
             var item = x_upService.GetMyLast(userid);
+            item.FatherPhoto += "_1.jpg";
+            item.ChildPhoto += "_1.jpg";
             if (item != null)
             {
                 result.Success = true;
@@ -175,6 +177,7 @@ namespace JFB.Wx.Controllers
                 }
                 string filename = DateTime.Now.ToString("yyMMddhhmmssfff") + file.FileName;
                 file.SaveAs(path + filename);
+                ThumbnailHelper.MakeThumbnailImage(path + filename, path + filename + "_1.jpg", 400, 400);
                 string dbpath = oripath + filename;
                 if (string.IsNullOrEmpty(uftype.fatherp))
                 {
@@ -201,7 +204,7 @@ namespace JFB.Wx.Controllers
                     uftype.childp = null;
                 }
                 reuslt.Success = true;
-                reuslt.Source = dbpath;
+                reuslt.Source = dbpath + "_1.jpg";
             }
             return Json(reuslt);
         }

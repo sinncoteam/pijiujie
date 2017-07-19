@@ -326,6 +326,7 @@ var param = {
             {
                 param.isUpin = true;
                 $("#x_perv").text("照片正在对比中，请稍候...");
+                $("#x_perv2").empty();
                 _this.seephoto();
                 $(".btn-meto").hide();
                 $(".btn-again").show();

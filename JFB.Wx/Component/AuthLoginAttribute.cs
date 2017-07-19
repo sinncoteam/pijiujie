@@ -59,10 +59,10 @@ namespace JFB.Wx.Component
             else
             {
                 string pq = null;
-                if (filterContext.HttpContext.Request.Url != null)
-                {
-                    pq = filterContext.HttpContext.Request.Url.PathAndQuery;
-                }
+                //if (filterContext.HttpContext.Request.Url != null)
+                //{
+                //    pq = filterContext.HttpContext.Request.Url.PathAndQuery;
+                //}
                 //string host = filterContext.HttpContext.Request.Url.Host;
                 //host = filterContext.HttpContext.Server.UrlEncode("http://" + host + "/user/wxlogin");
                 //string loginurl = filterContext.HttpContext.Server.UrlEncode("/wx/login?s=" + pq);

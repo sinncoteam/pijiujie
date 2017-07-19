@@ -33,7 +33,7 @@ function uploadFile(t, type)
     xhr.addEventListener("abort", uploadCanceled, false);
     xhr.open("POST", "/pjj/home/upfile");
     xhr.send(fd);
-    $("#x_up_gress").html("正在上传，请稍候...");
+    $("#x_up_gress").html("正在上传照片，请稍候... ");
 }
 
 function uploadProgress(evt)
@@ -51,9 +51,13 @@ function uploadProgress(evt)
 
 function uploadComplete(evt)
 {
-    $("#x_up_gress").empty();
+    $("#x_up_gress").text("上传成功");
+    setTimeout(function ()
+    {
+        $("#x_up_gress").text("若两张图片都已上传完成，无需等待图片完全显示出来，可先点击“查看结果”查看匹配度");
+    }, 1000);
     var sour = $.parseJSON(evt.target.responseText);
-    $(".upimg" + fctype + ">img").attr("src", "."+sour.Source).css("width","100%").css("height","100%");
+    $(".upimg" + fctype + ">img").attr("src", sour.Source).css("width","100%").css("height","100%");
 }
 
 function uploadFailed(evt)
