@@ -36,5 +36,11 @@ namespace JFB.Business.Domain.Service
             string sql = "select top 1 * from t_d_user_photo where user_id = "+ userId +" order by id desc ";
             return DataHelper.Fill<UserPhotoInfo>(sql).FirstOrDefault();
         }
+
+        public IList<UserPhotoInfo> GetAllList()
+        {
+            string sql = "select u.*, upo.fatherphoto, upo.childphoto, upo.pervalue from t_d_user u inner join t_d_user_photo upo on u.ID = upo.user_id inner join (select  MIN(up2.id) id from (select  max(up.pervalue) pev, user_id from t_d_user_photo as up group by user_id) as a inner join t_d_user_photo up2 on a.user_id = up2.user_id and up2.pervalue = a.pev group by a.pev, a.user_id) c on c.id = upo.ID where upo.isvalid = 1 and upo.pervalue > 0 and u.isvalid = 1 order by upo.pervalue desc";
+            return DataHelper.Fill<UserPhotoInfo>(sql);
+        }
     }
 }

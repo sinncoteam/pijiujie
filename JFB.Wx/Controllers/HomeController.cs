@@ -250,5 +250,25 @@ namespace JFB.Wx.Controllers
                 Signature = sign
             };
         }
+
+        public ActionResult xTolist()
+        {
+            UserPhotoService x_upService = new UserPhotoService();
+            var list = x_upService.GetAllList();
+            XListInfo xt = new XListInfo();
+            xt.upList = list;
+            xt.count = list.Count;
+            return View(xt);
+        }
+
+        public JsonResult outit()
+        {
+            AjaxMsgResult result = new AjaxMsgResult();
+            UserService x_uService = new UserService();
+            int uid = Convert.ToInt32(Request.Form["d"]);
+            x_uService.Update(() => new UserInfo() { IsValid = 0 }, a => a.ID == uid);
+            result.Success = true;
+            return Json(result);
+        }
     }
 }

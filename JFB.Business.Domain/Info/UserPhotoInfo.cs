@@ -11,5 +11,9 @@ namespace JFB.Business.Domain.Info
         public string HeadImage { get; set; }
         public string NickName { get; set; }
 
+        public string RealName { get; set; }
+        public string Phone { get; set; }
+        public int Ages { get; set; }
+        public string JobOn { get; set; }
     }
 }

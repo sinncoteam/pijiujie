@@ -1,0 +1,61 @@
+﻿@{ Layout = null;}
+@model PJJ.Wx.Models.XListInfo
+@{int i = 1;}
+<style type="text/css">
+img { width:60px; height:60px; }
+#xlist .tr { clear:both; padding:10px; }
+#xlist .tr .td { float:left; padding:10px; width:80px; }
+</style>
+<script src="/pjj/js/libs/jquery.1.8.2.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+    function outit(d,t)
+    {
+        $.ajax({
+            url: "/pjj/home/outit", data: { d: d }, type: "post", dataType: "json",
+            success: function (r)
+            {
+                if (r.Success) { $(t).parent().parent().remove(); }
+            },
+            error: function (e)
+            {
+                alert("出错了");
+            }
+        });
+    }
+</script>
+<h4>得奖人数： @Model.count</h4>
+ <div id="xlist">
+					<div class="tr">
+						<div class="td">排行</div>
+						<div class="td">头像</div>
+						<div class="td">昵称</div>
+                        <div class="td">成绩</div>
+						<div class="td">图片1</div>
+                        <div class="td">图片2</div>
+                        <div class="td">姓名</div>
+                        <div class="td">手机</div>
+                        <div class="td">年龄</div>
+                        <div class="td">职业</div>
+                        <div class="td">时间</div>
+                        <div class="td">操作</div>
+					</div> 
+ 
+                @foreach (var item in Model.upList)
+                {                    
+					<div class="tr">
+						<div class="td">@i</div>
+						<div class="td"><img src="@item.HeadImage" /></div>
+						<div class="td">@item.NickName</div>
+						<div class="td">@item.PerValue</div>
+                        <div class="td"><a href="@(item.FatherPhoto)" target="_blank"><img src="@(item.FatherPhoto)_1.jpg" /></a></div>
+						<div class="td"><a href="@(item.ChildPhoto)" target="_blank"><img src="@(item.ChildPhoto)_1.jpg" /></a></div>
+						<div class="td">@item.RealName</div>
+						<div class="td">@item.Phone</div>
+                        <div class="td">@item.Ages</div>
+						<div class="td">@item.JobOn</div>
+						<div class="td">@item.PerValueTime.ToString("yyyy-MM-dd")</div>
+                        <div class="td"><a href="javascript:;" onclick="javascript:outit(@item.ID,this);">[排 除]</a></div>
+					</div>	
+                    i++;
+                } 
+                </div>

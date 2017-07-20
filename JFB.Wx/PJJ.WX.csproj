@@ -141,6 +141,7 @@
     <Compile Include="Models\UPInfo.cs" />
     <Compile Include="Models\WxpayInfo.cs" />
     <Compile Include="Models\WxUserInfo.cs" />
+    <Compile Include="Models\XListInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -254,6 +255,7 @@
   <ItemGroup>
     <None Include="js\libs\jquery.fullpage.min.css.map" />
     <None Include="js\libs\jquery.fullpage.min.js.map" />
+    <Content Include="Views\Home\xTolist.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="uploads\" />
